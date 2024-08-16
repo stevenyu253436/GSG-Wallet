@@ -14,6 +14,29 @@
 		D0445B632C6ED0170059D522 /* GSG_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B622C6ED0170059D522 /* GSG_WalletTests.swift */; };
 		D0445B6D2C6ED0170059D522 /* GSG_WalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B6C2C6ED0170059D522 /* GSG_WalletUITests.swift */; };
 		D0445B6F2C6ED0170059D522 /* GSG_WalletUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B6E2C6ED0170059D522 /* GSG_WalletUITestsLaunchTests.swift */; };
+		D0445B7C2C6ED1190059D522 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B7B2C6ED1190059D522 /* HomeView.swift */; };
+		D0445B7E2C6ED1640059D522 /* RechargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B7D2C6ED1640059D522 /* RechargeView.swift */; };
+		D0445B802C6ED1920059D522 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B7F2C6ED1920059D522 /* CardView.swift */; };
+		D0445B822C6ED24E0059D522 /* WithdrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B812C6ED24E0059D522 /* WithdrawView.swift */; };
+		D0445B842C6ED27A0059D522 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B832C6ED27A0059D522 /* AccountView.swift */; };
+		D0445B862C6ED2AF0059D522 /* AccountSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B852C6ED2AF0059D522 /* AccountSecurityView.swift */; };
+		D0445B882C6ED2DF0059D522 /* IdentityVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B872C6ED2DF0059D522 /* IdentityVerificationView.swift */; };
+		D0445B8A2C6ED30F0059D522 /* AddressBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B892C6ED30F0059D522 /* AddressBookView.swift */; };
+		D0445B8C2C6ED3310059D522 /* AddAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B8B2C6ED3310059D522 /* AddAddressView.swift */; };
+		D0445B8E2C6ED3650059D522 /* ServiceFeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B8D2C6ED3650059D522 /* ServiceFeesView.swift */; };
+		D0445B902C6ED38C0059D522 /* InviteFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B8F2C6ED38C0059D522 /* InviteFriendsView.swift */; };
+		D0445B922C6ED3C20059D522 /* MessageCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B912C6ED3C20059D522 /* MessageCenterView.swift */; };
+		D0445B942C6ED3FF0059D522 /* GlobalTransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B932C6ED3FF0059D522 /* GlobalTransferView.swift */; };
+		D0445B962C6ED68D0059D522 /* CountrySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B952C6ED68D0059D522 /* CountrySelectionView.swift */; };
+		D0445B9A2C6ED6D60059D522 /* CurrencyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B992C6ED6D60059D522 /* CurrencyListView.swift */; };
+		D0445B9C2C6ED7070059D522 /* SSLPinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B9B2C6ED7070059D522 /* SSLPinner.swift */; };
+		D0445BA02C6ED7630059D522 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B9F2C6ED7630059D522 /* LoginView.swift */; };
+		D0445BA22C6ED7880059D522 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA12C6ED7880059D522 /* QRCodeScannerView.swift */; };
+		D0445BA42C6ED7D40059D522 /* TransferInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA32C6ED7D40059D522 /* TransferInView.swift */; };
+		D0445BA62C6ED8300059D522 /* CardBindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA52C6ED8300059D522 /* CardBindingView.swift */; };
+		D0445BA82C6ED86B0059D522 /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA72C6ED86B0059D522 /* ExchangeView.swift */; };
+		D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA92C6ED8D10059D522 /* WalletModels.swift */; };
+		D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BAC2C6F084E0059D522 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +67,30 @@
 		D0445B682C6ED0170059D522 /* GSG WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSG WalletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B6C2C6ED0170059D522 /* GSG_WalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletUITests.swift; sourceTree = "<group>"; };
 		D0445B6E2C6ED0170059D522 /* GSG_WalletUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D0445B7B2C6ED1190059D522 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D0445B7D2C6ED1640059D522 /* RechargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeView.swift; sourceTree = "<group>"; };
+		D0445B7F2C6ED1920059D522 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D0445B812C6ED24E0059D522 /* WithdrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawView.swift; sourceTree = "<group>"; };
+		D0445B832C6ED27A0059D522 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		D0445B852C6ED2AF0059D522 /* AccountSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSecurityView.swift; sourceTree = "<group>"; };
+		D0445B872C6ED2DF0059D522 /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
+		D0445B892C6ED30F0059D522 /* AddressBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookView.swift; sourceTree = "<group>"; };
+		D0445B8B2C6ED3310059D522 /* AddAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressView.swift; sourceTree = "<group>"; };
+		D0445B8D2C6ED3650059D522 /* ServiceFeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFeesView.swift; sourceTree = "<group>"; };
+		D0445B8F2C6ED38C0059D522 /* InviteFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsView.swift; sourceTree = "<group>"; };
+		D0445B912C6ED3C20059D522 /* MessageCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterView.swift; sourceTree = "<group>"; };
+		D0445B932C6ED3FF0059D522 /* GlobalTransferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTransferView.swift; sourceTree = "<group>"; };
+		D0445B952C6ED68D0059D522 /* CountrySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionView.swift; sourceTree = "<group>"; };
+		D0445B992C6ED6D60059D522 /* CurrencyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListView.swift; sourceTree = "<group>"; };
+		D0445B9B2C6ED7070059D522 /* SSLPinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLPinner.swift; sourceTree = "<group>"; };
+		D0445B9F2C6ED7630059D522 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D0445BA12C6ED7880059D522 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
+		D0445BA32C6ED7D40059D522 /* TransferInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferInView.swift; sourceTree = "<group>"; };
+		D0445BA52C6ED8300059D522 /* CardBindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBindingView.swift; sourceTree = "<group>"; };
+		D0445BA72C6ED86B0059D522 /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
+		D0445BA92C6ED8D10059D522 /* WalletModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModels.swift; sourceTree = "<group>"; };
+		D0445BAB2C6ED9370059D522 /* GSG-Wallet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GSG-Wallet-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D0445BAC2C6F084E0059D522 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +141,34 @@
 		D0445B502C6ED0150059D522 /* GSG Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				D0445BAB2C6ED9370059D522 /* GSG-Wallet-Info.plist */,
 				D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */,
 				D0445B532C6ED0150059D522 /* ContentView.swift */,
 				D0445B552C6ED0170059D522 /* Assets.xcassets */,
 				D0445B572C6ED0170059D522 /* Preview Content */,
+				D0445B7B2C6ED1190059D522 /* HomeView.swift */,
+				D0445B7D2C6ED1640059D522 /* RechargeView.swift */,
+				D0445B7F2C6ED1920059D522 /* CardView.swift */,
+				D0445B812C6ED24E0059D522 /* WithdrawView.swift */,
+				D0445B832C6ED27A0059D522 /* AccountView.swift */,
+				D0445B852C6ED2AF0059D522 /* AccountSecurityView.swift */,
+				D0445B872C6ED2DF0059D522 /* IdentityVerificationView.swift */,
+				D0445B892C6ED30F0059D522 /* AddressBookView.swift */,
+				D0445B8B2C6ED3310059D522 /* AddAddressView.swift */,
+				D0445B8D2C6ED3650059D522 /* ServiceFeesView.swift */,
+				D0445B8F2C6ED38C0059D522 /* InviteFriendsView.swift */,
+				D0445B912C6ED3C20059D522 /* MessageCenterView.swift */,
+				D0445B932C6ED3FF0059D522 /* GlobalTransferView.swift */,
+				D0445B952C6ED68D0059D522 /* CountrySelectionView.swift */,
+				D0445B992C6ED6D60059D522 /* CurrencyListView.swift */,
+				D0445B9B2C6ED7070059D522 /* SSLPinner.swift */,
+				D0445B9F2C6ED7630059D522 /* LoginView.swift */,
+				D0445BA12C6ED7880059D522 /* QRCodeScannerView.swift */,
+				D0445BA32C6ED7D40059D522 /* TransferInView.swift */,
+				D0445BA52C6ED8300059D522 /* CardBindingView.swift */,
+				D0445BA72C6ED86B0059D522 /* ExchangeView.swift */,
+				D0445BA92C6ED8D10059D522 /* WalletModels.swift */,
+				D0445BAC2C6F084E0059D522 /* RegisterView.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -257,8 +328,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0445B882C6ED2DF0059D522 /* IdentityVerificationView.swift in Sources */,
+				D0445B902C6ED38C0059D522 /* InviteFriendsView.swift in Sources */,
+				D0445B7C2C6ED1190059D522 /* HomeView.swift in Sources */,
+				D0445B8A2C6ED30F0059D522 /* AddressBookView.swift in Sources */,
+				D0445B8E2C6ED3650059D522 /* ServiceFeesView.swift in Sources */,
+				D0445B7E2C6ED1640059D522 /* RechargeView.swift in Sources */,
+				D0445B822C6ED24E0059D522 /* WithdrawView.swift in Sources */,
+				D0445B922C6ED3C20059D522 /* MessageCenterView.swift in Sources */,
 				D0445B542C6ED0150059D522 /* ContentView.swift in Sources */,
+				D0445BA42C6ED7D40059D522 /* TransferInView.swift in Sources */,
+				D0445B862C6ED2AF0059D522 /* AccountSecurityView.swift in Sources */,
+				D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */,
+				D0445B962C6ED68D0059D522 /* CountrySelectionView.swift in Sources */,
+				D0445B8C2C6ED3310059D522 /* AddAddressView.swift in Sources */,
+				D0445B942C6ED3FF0059D522 /* GlobalTransferView.swift in Sources */,
+				D0445BA22C6ED7880059D522 /* QRCodeScannerView.swift in Sources */,
+				D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */,
+				D0445B9A2C6ED6D60059D522 /* CurrencyListView.swift in Sources */,
+				D0445B9C2C6ED7070059D522 /* SSLPinner.swift in Sources */,
+				D0445B842C6ED27A0059D522 /* AccountView.swift in Sources */,
+				D0445BA82C6ED86B0059D522 /* ExchangeView.swift in Sources */,
 				D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */,
+				D0445BA02C6ED7630059D522 /* LoginView.swift in Sources */,
+				D0445BA62C6ED8300059D522 /* CardBindingView.swift in Sources */,
+				D0445B802C6ED1920059D522 /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +519,8 @@
 				DEVELOPMENT_TEAM = 5YGLWU7828;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -454,6 +550,8 @@
 				DEVELOPMENT_TEAM = 5YGLWU7828;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
