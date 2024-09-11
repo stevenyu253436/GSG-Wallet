@@ -82,7 +82,7 @@ struct RegisterView: View {
             .padding(.horizontal)
             
             NavigationLink(
-                destination: VerificationView(phoneNumber: phoneNumber, isRegistered: $isRegistered),
+                destination: VerificationView(phoneNumber: phoneNumber, password: password, isRegistered: $isRegistered),
                 isActive: $navigateToVerification
             ) {
                 Button(action: {
@@ -143,6 +143,19 @@ struct RegisterView: View {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // 获取存储的AuthToken
+        @AppStorage("authToken") var authToken: String = ""
+        
+        // 检查是否有有效的authToken
+        if authToken.isEmpty {
+            print("AuthToken is missing")
+            completion(false)
+            return
+        }
+
+        // 添加AuthToken到请求头
+        request.setValue(authToken, forHTTPHeaderField: "AuthToken")
         
         let body: [String: String] = ["mobile": phoneNumber]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
