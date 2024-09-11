@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant" // 使用 AppStorage 获取当前选择的语言
     @State private var isBalanceHidden = false
-    @State private var usdtAmount: Double = 0.0  // 用於顯示 USDT 金額
+    // Define your ERC20 and TRC20 amounts
+    @State private var usdtERC20Amount: Double = 0.00 // Example amount
+    @State private var usdtTRC20Amount: Double = 0.00 // Example amount
     @State private var usdAmount: Double = 0.0   // 用於顯示 USD 金額
-    @State private var ethAmount: Double = 0.0   // 用於顯示 ETH 金額
-    @State private var btcAmount: Double = 0.0   // 用於顯示 BTC 金額
     @State private var isShowingCurrencyList = false
     @State private var selectedActionType: ActionType = .recharge
     @State private var showMessageCenter = false
@@ -29,7 +30,7 @@ struct HomeView: View {
                 // 上方顯示總資產和金額
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text("總資產")
+                        Text(selectedLanguage == "zh-Hant" ? "總資產" : "Total assets")
                             .font(.headline)
                             .foregroundColor(.gray)
                         
@@ -48,7 +49,7 @@ struct HomeView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                         } else {
-                            Text("\(usdtAmount, specifier: "%.2f")")
+                            Text("\(usdAmount + usdtERC20Amount + usdtTRC20Amount, specifier: "%.2f")")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                         }
@@ -62,34 +63,34 @@ struct HomeView: View {
                 // 充值、提現、兌換、全球速匯按鈕
                 HStack(spacing: 30) {
                     // 使用 NavigationLink 進行導航
-                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtAmount, actionType: .recharge)) {
+                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtTRC20Amount, actionType: .recharge)) {
                         VStack {
                             Image(systemName: "arrow.down.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("充值")
+                            Text(selectedLanguage == "zh-Hant" ? "充值" : "Deposit")
                                 .foregroundColor(.black)
                         }
                     }
                     
-                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtAmount, actionType: .withdraw)) {
+                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtTRC20Amount, actionType: .withdraw)) {
                         VStack {
                             Image(systemName: "arrow.up.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("提現")
+                            Text(selectedLanguage == "zh-Hant" ? "提現" : "Withdraw")
                                 .foregroundColor(.black)
                         }
                     }
                     
                     
                     // 使用 NavigationLink 進行導航到兌換頁面
-                    NavigationLink(destination: ExchangeView(usdtAmount: usdtAmount)) {
+                    NavigationLink(destination: ExchangeView(usdtAmount: usdtTRC20Amount)) {
                         VStack {
                             Image(systemName: "arrow.left.and.right.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("兌換")
+                            Text(selectedLanguage == "zh-Hant" ? "兌換" : "Exchange")
                                 .foregroundColor(.black)
                         }
                     }
@@ -99,7 +100,7 @@ struct HomeView: View {
                             Image(systemName: "globe")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("全球速匯")
+                            Text(selectedLanguage == "zh-Hant" ? "全球速匯" : "Remittance")
                                 .foregroundColor(.black)
                         }
                     }
@@ -110,11 +111,29 @@ struct HomeView: View {
                 // 資產列表
                 List {
                     AssetRow(assetName: "USD", assetDescription: "US Dollars", balance: "0.00", equivalent: "≈$0.00", iconName: "dollarsign")
-                    AssetRow(assetName: "USDT", assetDescription: "Tether", balance: "\(usdtAmount)", equivalent: "≈$\(usdtAmount)", iconName: "tether-usdt-logo") // 顯示 USDT 的金額
+
+                    // USDT-ERC20 Row
+                    AssetRow(
+                        assetName: "USDT-ERC20",
+                        assetDescription: "Tether (ERC20)",
+                        balance: String(format: "%.6f", usdtERC20Amount), // 顯示到小數點後六位
+                        equivalent: String(format: "≈$%.2f", usdtERC20Amount), // 顯示到小數點後兩位
+                        iconName: "tether-usdt-logo"
+                    )
+
+                    // USDT-TRC20 Row
+                    AssetRow(
+                        assetName: "USDT-TRC20",
+                        assetDescription: "Tether (TRC20)",
+                        balance: String(format: "%.6f", usdtTRC20Amount), // 顯示到小數點後六位
+                        equivalent: String(format: "≈$%.2f", usdtTRC20Amount), // 顯示到小數點後兩位
+                        iconName: "tether-usdt-logo"
+                    )
                 }
                 .listStyle(InsetGroupedListStyle())
                 .onAppear {
-                    fetchUSDTAmount()
+                    fetchUSDTTRC20Amount()
+                    fetchUSDTERC20Amount()
                 }
             }
             .toolbar {
@@ -128,7 +147,7 @@ struct HomeView: View {
         }
     }
     
-    func fetchUSDTAmount() {
+    func fetchUSDTTRC20Amount() {
         guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/GetWallets") else {
             print("Invalid URL")
             return
@@ -148,7 +167,7 @@ struct HomeView: View {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
         } catch {
-            print("Failed to encode JSON")
+            print("Failed to encode JSON for USDT-TRC20: \(error.localizedDescription)")
             return
         }
         
@@ -169,14 +188,63 @@ struct HomeView: View {
                 let walletResponse = try JSONDecoder().decode(WalletResponse.self, from: data)
                 if let usdtWallet = walletResponse.data.responseWallets.first(where: { $0.coinType == "USDT" }) {
                     DispatchQueue.main.async {
-                        self.usdtAmount = usdtWallet.amount
+                        self.usdtTRC20Amount = usdtWallet.amount
                     }
                 } else {
                     print("USDT not found")
                 }
                 
             } catch {
-                print("Failed to decode JSON: \(error)")
+                print("Failed to decode JSON for USDT-TRC20: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+    
+    func fetchUSDTERC20Amount() {
+        // 定义 URL 组件
+        let baseUrl = "https://api.etherscan.io/api"
+        let module = "account"
+        let action = "tokenbalance"
+        let contractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+        let address = "0x1E7B10AaF9888a6b1FED08E72859351d465c5932"
+        let tag = "latest"
+        let apiKey = "H6WZH2NCZVQCQUNQJIKAH9TRFCINEKHNI5"
+        
+        // 生成 URL 字符串
+        guard let url = URL(string: "\(baseUrl)?module=\(module)&action=\(action)&contractaddress=\(contractAddress)&address=\(address)&tag=\(tag)&apikey=\(apiKey)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Failed to fetch data for USDT-ERC20: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received for USDT-ERC20")
+                return
+            }
+            
+            do {
+                let etherscanResponse = try JSONDecoder().decode(EtherscanResponse.self, from: data)
+                if etherscanResponse.status == "1" {
+                    if let balance = Double(etherscanResponse.result) {
+                        DispatchQueue.main.async {
+                            self.usdtERC20Amount = balance / 1_000_000 // Convert from token units to decimal units
+                        }
+                    } else {
+                        print("Failed to parse balance for USDT-ERC20")
+                    }
+                } else {
+                    print("Error in response for USDT-ERC20: \(etherscanResponse.message)")
+                }
+                
+            } catch {
+                print("Failed to decode JSON for USDT-ERC20: \(error.localizedDescription)")
             }
         }.resume()
     }
@@ -219,5 +287,11 @@ struct AssetRow: View {
             }
         }
         .padding(.vertical, 10)
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }
