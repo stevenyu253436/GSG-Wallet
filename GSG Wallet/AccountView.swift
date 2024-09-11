@@ -7,13 +7,23 @@
 
 import SwiftUI
 
+let selectedLanguageKey = "selectedLanguage"
+
 struct AccountView: View {
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = true // 默认是登录状态
-    
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
+
     @State private var showMessageCenter = false
     @State private var showAlertType: AlertType? // 用于控制不同 alert 的显示
     @State private var showIdentityVerification = false // 控制身份认证页面的显示
     @State private var navigationPath = NavigationPath() // 用于 NavigationStack 的路径
+    @State private var showHelpSheet = false // 控制帮助视图的显示
+    @State private var showCameraActionSheet = false // 控制相机选项的显示
+
+    @State private var showImagePicker = false // 控制 ImagePicker 的显示
+    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .camera // 控制图片选择的来源
+    @State private var selectedImage: UIImage? // 保存选择的图片
+    @State private var showLanguageSheet = false // 控制语言选择视图的显示
 
     enum AlertType: Identifiable {
         case missingInfo
@@ -27,54 +37,20 @@ struct AccountView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) { // 使用 NavigationStack
             VStack {
-                // 头像和基本信息部分
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 15) {
-                        // 头像
-                        ZStack {
-                            Circle()
-                                .fill(Color.purple)
-                                .frame(width: 60, height: 60)
-                            
-                            Text("CY")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("097****868")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                            
-                            Text("Chewei Yu")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            // 添加操作代码
-                        }) {
-                            Image(systemName: "camera")
-                                .foregroundColor(.gray)
-                        }
-                    }
-                }
-                .padding()
+                UserInfoView()  // 将复杂的部分提取为单独的视图
                 
                 // 列表部分
                 List {
                     Section {
                         NavigationLink(destination: AccountSecurityView()) {
-                            Label("帳戶&安全", systemImage: "person.crop.circle")
+                            Label(languageSpecificText(zhText: "帳戶&安全", enText: "Account & Security"), systemImage: "person.crop.circle")
                         }
                         
                         NavigationLink(destination: IdentityVerificationView()) {
                             HStack {
-                                Label("身份認證", systemImage: "checkmark.shield")
+                                Label(languageSpecificText(zhText: "身份認證", enText: "Identity authentication"), systemImage: "checkmark.shield")
                                 Spacer()
-                                Text("待完善")
+                                Text(languageSpecificText(zhText: "待完善", enText: "Incomplete"))
                                     .foregroundColor(.orange)
                                     .font(.subheadline)
                             }
@@ -84,7 +60,7 @@ struct AccountView: View {
                             showAlertType = .missingInfo // 点击帐户管理时触发 missingInfo 的 alert
                         }) {
                             HStack {
-                                Label("帳戶管理", systemImage: "gear")
+                                Label(languageSpecificText(zhText: "帳戶管理", enText: "Account management"), systemImage: "gear")
                                 Spacer() // 在 Label 和箭头图标之间添加间隔
                                 Image(systemName: "chevron.right") // 使用系统的向右箭头图标
                                     .foregroundColor(.gray) // 设置箭头的颜色
@@ -92,29 +68,33 @@ struct AccountView: View {
                         }
                         
                         NavigationLink(destination: AddressBookView()) {
-                            Label("地址簿", systemImage: "bookmark")
+                            Label(languageSpecificText(zhText: "地址簿", enText: "Address book"), systemImage: "bookmark")
                         }
                     }
                     
                     Section {
                         NavigationLink(destination: ServiceFeesView()) {
-                            Label("服務費用", systemImage: "doc.text.magnifyingglass")
+                            Label(languageSpecificText(zhText: "服務費用", enText: "Service fee"), systemImage: "doc.text.magnifyingglass")
                         }
                         
-                        NavigationLink(destination: InviteFriendsView()) {
-                            Label("邀請好友", systemImage: "gift")
+//                        NavigationLink(destination: InviteFriendsView()) {
+//                            Label("邀請好友", systemImage: "gift")
+//                        }
+                        
+                        Button(action: {
+                            showLanguageSheet.toggle() // 显示语言选择视图
+                        }) {
+                            Label(languageSpecificText(zhText: "語言設定", enText: "Language setting"), systemImage: "globe")
+                        }
+
+                        Button(action: {
+                            showHelpSheet.toggle() // 显示帮助视图
+                        }) {
+                            Label(languageSpecificText(zhText: "幫助", enText: "Help"), systemImage: "questionmark.circle")
                         }
                         
-                        NavigationLink(destination: Text("語言設定")) {
-                            Label("語言設定", systemImage: "globe")
-                        }
-                        
-                        NavigationLink(destination: Text("幫助")) {
-                            Label("幫助", systemImage: "questionmark.circle")
-                        }
-                        
-                        NavigationLink(destination: Text("關於Unioncash")) {
-                            Label("關於GSG Wallet", systemImage: "exclamationmark.circle")
+                        NavigationLink(destination: AboutView()) {
+                            Label(languageSpecificText(zhText: "關於GSG Wallet", enText: "About GSG Wallet"), systemImage: "exclamationmark.circle")
                         }
                     }
                 }
@@ -126,7 +106,7 @@ struct AccountView: View {
                     // 显示登出确认弹窗
                     showAlertType = .logoutConfirmation
                 }) {
-                    Text("登出")
+                    Text(languageSpecificText(zhText: "登出", enText: "Log out"))
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -137,7 +117,7 @@ struct AccountView: View {
                 }
                 .padding(.bottom, 20)
             }
-            .navigationTitle("賬戶")
+            .navigationTitle(languageSpecificText(zhText: "賬戶", enText: "Account"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -159,22 +139,22 @@ struct AccountView: View {
                 switch alertType {
                 case .missingInfo:
                     return Alert(
-                        title: Text("提示"),
-                        message: Text("您還沒有完善基本訊息，請先完善基本資訊。"),
-                        primaryButton: .default(Text("確認")) {
+                        title: Text(languageSpecificText(zhText: "提示", enText: "Warning")),
+                        message: Text(languageSpecificText(zhText: "您還沒有完善基本訊息，請先完善基本資訊。", enText: "You have not completed the basic information, please complete it first.")),
+                        primaryButton: .default(Text(languageSpecificText(zhText: "確認", enText: "Confirm"))) {
                             // 使用路径导航到身份认证页面
                             navigationPath.append("IdentityVerification")
                         },
-                        secondaryButton: .cancel(Text("取消"))
+                        secondaryButton: .cancel(Text(languageSpecificText(zhText: "取消", enText: "Cancel")))
                     )
                 case .logoutConfirmation:
                     return Alert(
-                        title: Text("確認已登出嗎？"),
-                        primaryButton: .destructive(Text("登出")) {
+                        title: Text(languageSpecificText(zhText: "確認已登出嗎？", enText: "Are you sure you want to log out?")),
+                        primaryButton: .destructive(Text(languageSpecificText(zhText: "登出", enText: "Log out"))) {
                             // 将 isLoggedIn 设置为 false, 退出到 LoginView
                             isLoggedIn = false
                         },
-                        secondaryButton: .cancel(Text("取消"))
+                        secondaryButton: .cancel(Text(languageSpecificText(zhText: "取消", enText: "Cancel")))
                     )
                 }
             }
@@ -186,34 +166,93 @@ struct AccountView: View {
                     label: { EmptyView() }
                 )
             )
-            .navigationDestination(for: String.self) { destination in
-                switch destination {
-                case "AccountSecurity":
-                    AccountSecurityView()
-                case "IdentityVerification":
-                    IdentityVerificationView()
-                case "AddressBook":
-                    Text("地址簿")
-                case "ServiceFees":
-                    Text("服務費用")
-                case "InviteFriends":
-                    InviteFriendsView() // 改这里
-                case "LanguageSettings":
-                    Text("語言設定")
-                case "Help":
-                    Text("幫助")
-                case "AboutUnioncash":
-                    Text("關於GSG Wallet")
-                default:
-                    EmptyView()
+            .sheet(isPresented: $showHelpSheet) {
+                HelpView() // 弹出 HelpView
+            }
+            .actionSheet(isPresented: $showLanguageSheet) {
+                ActionSheet(
+                    title: Text(languageSpecificText(zhText: "語言", enText: "Language")),
+                    buttons: [
+                        .default(Text(selectedLanguage == "zh-Hant" ? "繁體中文 ✅" : "繁體中文")) {
+                            switchLanguage(to: "zh-Hant")
+                        },
+                        .default(Text(selectedLanguage == "en" ? "English ✅" : "English")) {
+                            switchLanguage(to: "en")
+                        },
+                        .cancel(Text(languageSpecificText(zhText: "取消", enText: "Cancel")))
+                    ]
+                )
+            }
+            .confirmationDialog(languageSpecificText(zhText: "選擇操作", enText: "Choose an action"), isPresented: $showCameraActionSheet) {
+                Button(languageSpecificText(zhText: "拍照", enText: "Camera")) {
+                    imagePickerSourceType = .camera
+                    showImagePicker = true
                 }
+                Button(languageSpecificText(zhText: "相簿", enText: "Album")) {
+                    imagePickerSourceType = .photoLibrary
+                    showImagePicker = true
+                }
+                Button(languageSpecificText(zhText: "取消", enText: "Cancel"), role: .cancel) { }
+            }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(sourceType: imagePickerSourceType, selectedImage: $selectedImage)
             }
         }
+    }
+    
+    private func switchLanguage(to languageCode: String) {
+        selectedLanguage = languageCode
+        Localizable.setLanguage(languageCode)
+        // 手动刷新视图
+//        UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: AccountView())
+    }
+    
+    // 一个辅助方法，用于根据当前语言选择显示的文本
+    private func languageSpecificText(zhText: String, enText: String) -> String {
+        return selectedLanguage == "zh-Hant" ? zhText : enText
     }
 }
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
+    }
+}
+
+// ImagePicker: 用于选择图片
+struct ImagePicker: UIViewControllerRepresentable {
+    var sourceType: UIImagePickerController.SourceType
+    @Binding var selectedImage: UIImage?
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = context.coordinator
+        return imagePicker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.selectedImage = image
+            }
+            picker.dismiss(animated: true)
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true)
+        }
     }
 }

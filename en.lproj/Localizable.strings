@@ -5,3 +5,15 @@
   Created by 游哲維 on 2024/8/25.
   
 */
+
+"account_title" = "賬戶";
+"account_security" = "帳戶&安全";
+"identity_verification" = "身份認證";
+"account_management" = "帳戶管理";
+"address_book" = "地址簿";
+"service_fees" = "服務費用";
+"language_setting" = "語言設定";
+"help" = "幫助";
+"about_gsg_wallet" = "關於GSG Wallet";
+"logout" = "登出";
+"logout_confirmation" = "確認已登出嗎？";

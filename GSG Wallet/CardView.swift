@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct CardView: View {
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
     @State private var isBalanceHidden = true
     @State private var cardBalance: Double = 1234.56
     @State private var transactions: [Transaction] = [
-        Transaction(description: "手續費出", date: "2024-06-30 06:20:00", amount: -1.075153),
-        Transaction(description: "手續費出", date: "2024-06-15 06:20:00", amount: -0.964300)
+        Transaction(descriptionZH: "手續費出", descriptionEN: "Fee Deduction", date: "2024-06-30 06:20:00", amount: -1.075153),
+        Transaction(descriptionZH: "手續費出", descriptionEN: "Fee Deduction", date: "2024-06-15 06:20:00", amount: -0.964300)
     ]
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 HStack {
-                    Text("卡片")
+                    Text(languageSpecificText(zhText: "卡片", enText: "Cards"))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
@@ -31,14 +32,14 @@ struct CardView: View {
                             // 订单操作
                             print("訂單選項被點擊")
                         }) {
-                            Text("訂單")
+                            Text(languageSpecificText(zhText: "訂單", enText: "Order"))
                         }
                         
                         Button(action: {
                             // 交易规则操作
                             print("交易規則選項被點擊")
                         }) {
-                            Text("交易規則")
+                            Text(languageSpecificText(zhText: "交易規則", enText: "Transaction Rules"))
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -50,7 +51,7 @@ struct CardView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text("總資產")
+                        Text(languageSpecificText(zhText: "總資產", enText: "Total assets"))
                             .font(.headline)
                             .foregroundColor(.gray)
                         
@@ -116,7 +117,7 @@ struct CardView: View {
                             Image(systemName: "arrow.down.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("轉入")
+                            Text(languageSpecificText(zhText: "轉入", enText: "Deposit"))
                                 .foregroundColor(.black)
                         }
                     }
@@ -128,7 +129,7 @@ struct CardView: View {
                             Image(systemName: "arrow.up.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("轉出")
+                            Text(languageSpecificText(zhText: "轉出", enText: "Withdraw"))
                                 .foregroundColor(.black)
                         }
                     }
@@ -140,7 +141,7 @@ struct CardView: View {
                             Image(systemName: "creditcard")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("查看密碼")
+                            Text(languageSpecificText(zhText: "查看密碼", enText: "View PIN"))
                                 .foregroundColor(.black)
                         }
                     }
@@ -152,7 +153,7 @@ struct CardView: View {
                             Image(systemName: "lock")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
-                            Text("掛失/解掛")
+                            Text(languageSpecificText(zhText: "掛失/解掛", enText: "Report/Unlock"))
                                 .foregroundColor(.black)
                         }
                     }
@@ -167,7 +168,7 @@ struct CardView: View {
                             .padding(.trailing, 10)
                         
                         VStack(alignment: .leading) {
-                            Text(transaction.description)
+                            Text(transaction.localizedDescription(selectedLanguage: selectedLanguage))
                                 .font(.headline)
                             Text(transaction.date)
                                 .font(.subheadline)
@@ -189,13 +190,23 @@ struct CardView: View {
             .navigationBarHidden(true)
         }
     }
+    
+    // 一个辅助方法，用于根据当前语言选择显示的文本
+    private func languageSpecificText(zhText: String, enText: String) -> String {
+        return selectedLanguage == "zh-Hant" ? zhText : enText
+    }
 }
 
 struct Transaction: Identifiable {
     var id = UUID()
-    var description: String
+    var descriptionZH: String
+    var descriptionEN: String
     var date: String
     var amount: Double
+    
+    func localizedDescription(selectedLanguage: String) -> String {
+        return selectedLanguage == "zh-Hant" ? descriptionZH : descriptionEN
+    }
 }
 
 struct CardView_Previews: PreviewProvider {

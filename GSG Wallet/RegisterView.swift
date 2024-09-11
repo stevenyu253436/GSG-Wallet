@@ -14,6 +14,9 @@ struct RegisterView: View {
     @State private var phoneNumber = ""
     @State private var password = ""
     @State private var isPasswordHidden = true
+    @State private var showInvitationField = false // 控制邀请码输入框的显示
+    @State private var invitationCode = "" // 存储邀请码
+    @State private var navigateToVerification = false // 控制页面跳转
 
     var body: some View {
         VStack(spacing: 20) {
@@ -77,21 +80,34 @@ struct RegisterView: View {
                 .cornerRadius(10)
             }
             .padding(.horizontal)
-
-            Button(action: {
-                // 注册操作完成，返回登录页面
-                isRegistered = true
-            }) {
-                Text("註冊")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(password.isEmpty ? Color(.systemGray4) : Color.purple)
-                    .cornerRadius(10)
+            
+            NavigationLink(
+                destination: VerificationView(phoneNumber: phoneNumber, isRegistered: $isRegistered),
+                isActive: $navigateToVerification
+            ) {
+                Button(action: {
+                    // 先发送网络请求
+                    sendVerificationCode { success in
+                        if success {
+                            // 如果成功，跳转到验证码页面
+                            navigateToVerification = true
+                        } else {
+                            // 处理失败的情况
+                            print("Failed to send verification code")
+                        }
+                    }
+                }) {
+                    Text("註冊")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(password.isEmpty ? Color(.systemGray4) : Color.purple)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal)
+                .disabled(phoneNumber.isEmpty || password.isEmpty) // 当电话号码或密码为空时禁用按钮
             }
-            .padding(.horizontal)
-            .disabled(phoneNumber.isEmpty || password.isEmpty) // 当电话号码或密码为空时禁用按钮
             
             Spacer()
 
@@ -114,6 +130,61 @@ struct RegisterView: View {
 
             Spacer()
         }
+    }
+    
+    // 发送验证码的网络请求函数
+    private func sendVerificationCode(completion: @escaping (Bool) -> Void) {
+        guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/MobileSMS") else {
+            print("Invalid URL")
+            completion(false)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: String] = ["mobile": phoneNumber]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        // 打印调试信息
+        print("Request URL: \(request.url?.absoluteString ?? "No URL")")
+        print("Request Headers: \(request.allHTTPHeaderFields ?? [:])")
+        if let bodyData = request.httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
+            print("Request Body: \(bodyString)")
+        } else {
+            print("Request Body: No Body")
+        }
+        
+        // 创建自定义的 URLSession，使用 SSLPinner 作为委托
+        let session = URLSession(configuration: .default, delegate: SSLPinner(), delegateQueue: nil)
+        
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Request error: \(error)")
+                completion(false)
+                return
+            }
+            
+            if let data = data, let bodyString = String(data: data, encoding: .utf8) {
+                print("Response Body: \(bodyString)")
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Response status code: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 {
+                    print("Request successful")
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                } else {
+                    print("Request failed with status code: \(httpResponse.statusCode)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                }
+            }
+        }.resume()
     }
 }
 

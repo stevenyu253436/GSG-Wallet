@@ -13,7 +13,8 @@ enum ActionType {
 }
 
 struct CurrencyListView: View {
-    var usdtAmount: Double
+    var erc20Balance: Double = 15.0 // 示例 ERC20 余额
+    var trc20Balance: Double = 21.8 // 示例 TRC20 余额
     var actionType: ActionType
     
     @State private var showWithdrawView = false // 控制 WithdrawView 的显示
@@ -80,7 +81,7 @@ struct CurrencyListView: View {
         }
         .navigationTitle("幣種清單")
         .fullScreenCover(isPresented: $showWithdrawView) {
-            WithdrawView(availableBalance: usdtAmount)
+            WithdrawView(erc20Balance: erc20Balance, trc20Balance: trc20Balance)
         }
         .onDisappear {
             // 显示 TabBar
@@ -125,6 +126,6 @@ struct CurrencyRow: View {
 
 struct CurrencyListView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrencyListView(usdtAmount: 21.8, actionType: .recharge)
+        CurrencyListView(erc20Balance: 15.0, trc20Balance: 21.8, actionType: .recharge)
     }
 }

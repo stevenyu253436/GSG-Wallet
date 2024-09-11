@@ -16,9 +16,15 @@ struct WithdrawView: View {
     @State private var netAmount: Double = 0.0
     @State private var isShowingScanner = false // 控制 QR 码扫描器的显示
 
-    var availableBalance: Double  // 接收传入的 USDT 金额
+    var erc20Balance: Double  // ERC20 的可用余额
+    var trc20Balance: Double  // TRC20 的可用余额
     @Environment(\.presentationMode) var presentationMode
 
+    // 计算显示的余额，基于选中的链名称
+    var displayedBalance: Double {
+        return selectedChainType == "ETH/ERC20" ? erc20Balance : trc20Balance
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
             // 添加返回按钮
@@ -61,7 +67,8 @@ struct WithdrawView: View {
                         .cornerRadius(10)
                 }
                 
-                Text("可用餘額: \(String(format: "%.6f", availableBalance)) USDT")
+                // 动态显示可用余额
+                Text("可用餘額: \(String(format: "%.6f", displayedBalance)) USDT")
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
@@ -191,6 +198,6 @@ struct WithdrawView: View {
 
 struct WithdrawView_Previews: PreviewProvider {
     static var previews: some View {
-        WithdrawView(availableBalance: 21.8) // 提供一个示例的 `availableBalance`
+        WithdrawView(erc20Balance: 15.0, trc20Balance: 21.8)
     }
 }

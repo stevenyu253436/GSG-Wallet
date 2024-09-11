@@ -10,16 +10,23 @@ import SwiftUI
 struct LoginView: View {
     @Binding var isLoggedIn: Bool  // 绑定登录状态
     
-    @State private var phoneNumber = "0972516868"
+    @State private var phoneNumber = ""
     @State private var password = ""
     @State private var isPasswordHidden = true
     @State private var isRegistering = false  // 控制注册页面的显示
+    @State private var isForgotPasswordActive = false // 控制忘记密码页面的显示
+    @State private var showErrorMessage = false
+    @State private var errorMessage = ""
+
+    // 使用 AccountView 中的 selectedLanguageKey 存储语言选择
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"  // 默认语言为繁体中文
+    @AppStorage("authToken") var authToken: String = ""  // Store authToken globally after login
 
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 // 欢迎标题
-                Text("歡迎回來")
+                Text(selectedLanguage == "zh-Hant" ? "歡迎回來" : "Welcome back")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.purple)
@@ -27,7 +34,7 @@ struct LoginView: View {
 
                 // 手机号码输入框
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("手機號碼")
+                    Text(selectedLanguage == "zh-Hant" ? "手機號碼" : "Phone")
                         .font(.headline)
                         .foregroundColor(.gray)
                     
@@ -41,7 +48,7 @@ struct LoginView: View {
                             .font(.headline)
                             .foregroundColor(.gray)
                         
-                        TextField("0972516868", text: $phoneNumber)
+                        TextField("0912345678", text: $phoneNumber)
                             .keyboardType(.phonePad)
                             .font(.headline)
                             .foregroundColor(.black)
@@ -54,17 +61,17 @@ struct LoginView: View {
 
                 // 密码输入框
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("輸入您的密碼")
+                    Text(selectedLanguage == "zh-Hant" ? "輸入您的密碼" : "Enter your password")
                         .font(.headline)
                         .foregroundColor(.gray)
                     
                     HStack {
                         if isPasswordHidden {
-                            SecureField("輸入您的密碼", text: $password)
+                            SecureField(selectedLanguage == "zh-Hant" ? "輸入您的密碼" : "Enter your password", text: $password)
                                 .font(.headline)
                                 .foregroundColor(.black)
                         } else {
-                            TextField("輸入您的密碼", text: $password)
+                            TextField(selectedLanguage == "zh-Hant" ? "輸入您的密碼" : "Enter your password", text: $password)
                                 .font(.headline)
                                 .foregroundColor(.black)
                         }
@@ -86,9 +93,9 @@ struct LoginView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        // 忘记密码操作
+                        isForgotPasswordActive = true
                     }) {
-                        Text("忘記密碼？")
+                        Text(selectedLanguage == "zh-Hant" ? "忘記密碼？" : "Forgot?")
                             .font(.subheadline)
                             .foregroundColor(.purple)
                     }
@@ -97,10 +104,9 @@ struct LoginView: View {
                 
                 // 登录按钮
                 Button(action: {
-                    // 这里进行用户验证，成功后设置 isLoggedIn 为 true
-                    isLoggedIn = true
+                    login()  // Call login function
                 }) {
-                    Text("登入")
+                    Text(selectedLanguage == "zh-Hant" ? "登入" : "Log in")
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -115,12 +121,12 @@ struct LoginView: View {
                 
                 // 注册链接
                 HStack {
-                    Text("創建GSG Wallet帳戶")
+                    Text(selectedLanguage == "zh-Hant" ? "創建GSG Wallet帳戶" : "Create a GSG Wallet account")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     Spacer()
                     NavigationLink(destination: RegisterView(isRegistered: $isRegistering), isActive: $isRegistering) {
-                        Text("註冊")
+                        Text(selectedLanguage == "zh-Hant" ? "註冊" : "Sign up")
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(.purple)
@@ -130,8 +136,120 @@ struct LoginView: View {
                 
                 Spacer()
             }
+            .toolbar {
+                // 右上角的语言切换按钮
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        toggleLanguage()
+                    }) {
+                        Text(selectedLanguage == "zh-Hant" ? "中文" : "ENGLISH")
+                            .foregroundColor(.purple)
+                    }
+                }
+            }
+            .background(
+                NavigationLink(destination: ForgotPasswordView(), isActive: $isForgotPasswordActive) {
+                    EmptyView()
+                }
+            )
         }
     }
+    
+    // 切换语言的方法
+    private func toggleLanguage() {
+        selectedLanguage = selectedLanguage == "zh-Hant" ? "en" : "zh-Hant"
+    }
+    
+    // Login function that calls the API
+    private func login() {
+        guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/GetLoginToken") else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Body content with phone number and password
+        let body: [String: String] = [
+            "mobile": phoneNumber,
+            "password": password
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            // Print the request body for debugging
+            if let requestBody = request.httpBody {
+                print("Request body: \(String(data: requestBody, encoding: .utf8) ?? "Unable to encode body")")
+            }
+        } catch {
+            self.errorMessage = "Error creating request."
+            self.showErrorMessage = true
+            print("Error encoding request body: \(error.localizedDescription)")
+            return
+        }
+        
+        // Use custom session with the SSLPinner delegate
+        let session = URLSession(configuration: .default, delegate: SSLPinner(), delegateQueue: nil)
+        
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.errorMessage = "Failed to login: \(error.localizedDescription)"
+                    self.showErrorMessage = true
+                }
+                print("Error during login request: \(error.localizedDescription)")
+                return
+            }
+            
+            // Print the raw response for debugging
+            if let data = data {
+                print("Raw response: \(String(data: data, encoding: .utf8) ?? "No response data")")
+            } else {
+                print("No response data received")
+            }
+            
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    self.errorMessage = "No response from server."
+                    self.showErrorMessage = true
+                }
+                return
+            }
+            
+            do {
+                // Parse the response
+                let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    if let token = loginResponse.data?.authToken {
+                        print("Received authToken: \(token)")  // Debugging authToken
+                        self.authToken = token  // Save authToken globally
+                        self.isLoggedIn = true  // Update login state
+                    } else {
+                        self.errorMessage = self.selectedLanguage == "zh-Hant" ? "登入失敗，請檢查信息" : "Login failed, please check your details"
+                        self.showErrorMessage = true
+                        print("Failed to retrieve authToken from response")
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.errorMessage = self.selectedLanguage == "zh-Hant" ? "無法解析響應數據" : "Failed to decode response."
+                    self.showErrorMessage = true
+                }
+                print("Error decoding response: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+}
+
+// Response model for decoding the login response
+struct LoginResponse: Codable {
+    struct Data: Codable {
+        let authToken: String
+    }
+    let data: Data?
 }
 
 struct LoginView_Previews: PreviewProvider {

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct EtherscanResponse: Codable {
+    let status: String
+    let message: String
+    let result: String // The balance in the response is a string representation of the number
+}

@@ -14,30 +14,31 @@ struct AuthenticationError: Identifiable {
 }
 
 struct AccountSecurityView: View {
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
     @State private var isFaceIDEnabled = false
     @State private var authenticationError: AuthenticationError?
 
     var body: some View {
         List {
             Section {
-                NavigationLink(destination: Text("修改手機號碼")) {
-                    Label("修改手機號碼", systemImage: "phone.fill")
+                NavigationLink(destination: Text(languageSpecificText(zhText: "修改手機號碼", enText: "Change phone number"))) {
+                    Label(languageSpecificText(zhText: "修改手機號碼", enText: "Change phone number"), systemImage: "phone.fill")
                 }
 
-                NavigationLink(destination: Text("變更信箱")) {
-                    Label("變更信箱", systemImage: "envelope.fill")
+                NavigationLink(destination: Text(languageSpecificText(zhText: "變更信箱", enText: "Change email"))) {
+                    Label(languageSpecificText(zhText: "變更信箱", enText: "Change email"), systemImage: "envelope.fill")
                 }
 
-                NavigationLink(destination: Text("登入密碼")) {
-                    Label("登入密碼", systemImage: "lock.fill")
+                NavigationLink(destination: Text(languageSpecificText(zhText: "登入密碼", enText: "Change login password"))) {
+                    Label(languageSpecificText(zhText: "登入密碼", enText: "Change login password"), systemImage: "lock.fill")
                 }
 
-                NavigationLink(destination: Text("支付密碼")) {
-                    Label("支付密碼", systemImage: "key.fill")
+                NavigationLink(destination: Text(languageSpecificText(zhText: "支付密碼", enText: "Change payment password"))) {
+                    Label(languageSpecificText(zhText: "支付密碼", enText: "Change payment password"), systemImage: "key.fill")
                 }
 
                 Toggle(isOn: $isFaceIDEnabled) {
-                    Label("面容/指紋登入", systemImage: "faceid")
+                    Label(languageSpecificText(zhText: "面容/指紋登入", enText: "FaceID/TouchID login"), systemImage: "faceid")
                 }
                 .onChange(of: isFaceIDEnabled) { newValue in
                     if newValue {
@@ -46,7 +47,14 @@ struct AccountSecurityView: View {
                 }
             }
         }
-        .navigationTitle("帳戶&安全")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(languageSpecificText(zhText: "帳戶&安全", enText: "Account & Security"))
+                    .font(.headline)
+                    .bold()
+            }
+        }
         .listStyle(GroupedListStyle())
         .alert(item: $authenticationError) { error in
             Alert(title: Text("Authentication Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
@@ -58,7 +66,7 @@ struct AccountSecurityView: View {
         var error: NSError?
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "需要Face ID/Touch ID驗證啟用此功能"
+            let reason = languageSpecificText(zhText: "需要Face ID/Touch ID驗證啟用此功能", enText: "Face ID/Touch ID verification is required to enable this feature")
 
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authError in
                 DispatchQueue.main.async {
@@ -73,8 +81,12 @@ struct AccountSecurityView: View {
             }
         } else {
             // 如果设备不支持生物识别
-            authenticationError = AuthenticationError(message: error?.localizedDescription ?? "不支持生物识别")
+            authenticationError = AuthenticationError(message: error?.localizedDescription ?? languageSpecificText(zhText: "不支持生物识别", enText: "Biometrics not supported"))
         }
+    }
+    
+    private func languageSpecificText(zhText: String, enText: String) -> String {
+        return selectedLanguage == "zh-Hant" ? zhText : enText
     }
 }
 

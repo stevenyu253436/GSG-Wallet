@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant" // 使用 AppStorage 获取当前选择的语言
+    @AppStorage("authToken") var authToken: String = "" // Fetch the saved AuthToken here.
+    
     @State private var isBalanceHidden = false
     // Define your ERC20 and TRC20 amounts
     @State private var usdtERC20Amount: Double = 0.00 // Example amount
@@ -63,7 +65,7 @@ struct HomeView: View {
                 // 充值、提現、兌換、全球速匯按鈕
                 HStack(spacing: 30) {
                     // 使用 NavigationLink 進行導航
-                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtTRC20Amount, actionType: .recharge)) {
+                    NavigationLink(destination: CurrencyListView(erc20Balance: usdtERC20Amount, trc20Balance: usdtTRC20Amount, actionType: .recharge)) {
                         VStack {
                             Image(systemName: "arrow.down.circle")
                                 .font(.largeTitle)
@@ -73,7 +75,7 @@ struct HomeView: View {
                         }
                     }
                     
-                    NavigationLink(destination: CurrencyListView(usdtAmount: usdtTRC20Amount, actionType: .withdraw)) {
+                    NavigationLink(destination: CurrencyListView(erc20Balance: usdtERC20Amount, trc20Balance: usdtTRC20Amount, actionType: .withdraw)) {
                         VStack {
                             Image(systemName: "arrow.up.circle")
                                 .font(.largeTitle)
@@ -148,6 +150,9 @@ struct HomeView: View {
     }
     
     func fetchUSDTTRC20Amount() {
+        // Print the authToken for debugging
+        print("AuthToken: \(authToken)")
+        
         guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/GetWallets") else {
             print("Invalid URL")
             return
@@ -157,10 +162,11 @@ struct HomeView: View {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(authToken, forHTTPHeaderField: "AuthToken") // Use the saved authToken here
+
         // 請求的 body
         let body: [String: String] = [
-            "address": "TT8i1yRfNqGL7uudFNgruUFJpqchJjXYZF"
+            "address": "TAMGw3VQMj9RUDQXAMPYVE7TqrckpqHrrS"
         ]
         
         // 將 body 轉換為 JSON 數據

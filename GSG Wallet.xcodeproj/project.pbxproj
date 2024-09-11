@@ -37,6 +37,18 @@
 		D0445BA82C6ED86B0059D522 /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA72C6ED86B0059D522 /* ExchangeView.swift */; };
 		D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BA92C6ED8D10059D522 /* WalletModels.swift */; };
 		D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445BAC2C6F084E0059D522 /* RegisterView.swift */; };
+		D0445C8D2C7A64330059D522 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C8C2C7A64320059D522 /* AboutView.swift */; };
+		D0445C8F2C7AC5920059D522 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C8E2C7AC5920059D522 /* HelpView.swift */; };
+		D0445C912C7AF5B70059D522 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C902C7AF5B70059D522 /* ForgotPasswordView.swift */; };
+		D0445C932C7B20700059D522 /* SecurityVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C922C7B20700059D522 /* SecurityVerificationView.swift */; };
+		D0445C952C7B27930059D522 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C942C7B27930059D522 /* VerificationView.swift */; };
+		D0445C992C7B46460059D522 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C982C7B46460059D522 /* String+Localizable.swift */; };
+		D0445C9B2C7B485A0059D522 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C9A2C7B48590059D522 /* UserInfoView.swift */; };
+		D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0445CB72C7B5BD40059D522 /* Localizable.strings */; };
+		D055E9942C91362400A97DD1 /* EtherscanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055E9932C91362400A97DD1 /* EtherscanResponse.swift */; };
+		D055E9972C914A1700A97DD1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9962C914A1700A97DD1 /* Web3 */; };
+		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; };
+		D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D055E99A2C914A1700A97DD1 /* Web3PromiseKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +83,7 @@
 		D0445B7D2C6ED1640059D522 /* RechargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeView.swift; sourceTree = "<group>"; };
 		D0445B7F2C6ED1920059D522 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D0445B812C6ED24E0059D522 /* WithdrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawView.swift; sourceTree = "<group>"; };
-		D0445B832C6ED27A0059D522 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		D0445B832C6ED27A0059D522 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		D0445B852C6ED2AF0059D522 /* AccountSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSecurityView.swift; sourceTree = "<group>"; };
 		D0445B872C6ED2DF0059D522 /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		D0445B892C6ED30F0059D522 /* AddressBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookView.swift; sourceTree = "<group>"; };
@@ -91,6 +103,16 @@
 		D0445BA92C6ED8D10059D522 /* WalletModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModels.swift; sourceTree = "<group>"; };
 		D0445BAB2C6ED9370059D522 /* GSG-Wallet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GSG-Wallet-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D0445BAC2C6F084E0059D522 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		D0445C8C2C7A64320059D522 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		D0445C8E2C7AC5920059D522 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		D0445C902C7AF5B70059D522 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		D0445C922C7B20700059D522 /* SecurityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityVerificationView.swift; sourceTree = "<group>"; };
+		D0445C942C7B27930059D522 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
+		D0445C982C7B46460059D522 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		D0445C9A2C7B48590059D522 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		D0445CB82C7B5BD40059D522 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D0445CBA2C7B5BE90059D522 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D055E9932C91362400A97DD1 /* EtherscanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtherscanResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +120,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */,
+				D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */,
+				D055E9972C914A1700A97DD1 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +146,7 @@
 		D0445B452C6ED0150059D522 = {
 			isa = PBXGroup;
 			children = (
+				D0445CB72C7B5BD40059D522 /* Localizable.strings */,
 				D0445B502C6ED0150059D522 /* GSG Wallet */,
 				D0445B612C6ED0170059D522 /* GSG WalletTests */,
 				D0445B6B2C6ED0170059D522 /* GSG WalletUITests */,
@@ -169,6 +195,14 @@
 				D0445BA72C6ED86B0059D522 /* ExchangeView.swift */,
 				D0445BA92C6ED8D10059D522 /* WalletModels.swift */,
 				D0445BAC2C6F084E0059D522 /* RegisterView.swift */,
+				D0445C8C2C7A64320059D522 /* AboutView.swift */,
+				D0445C8E2C7AC5920059D522 /* HelpView.swift */,
+				D0445C902C7AF5B70059D522 /* ForgotPasswordView.swift */,
+				D0445C922C7B20700059D522 /* SecurityVerificationView.swift */,
+				D0445C942C7B27930059D522 /* VerificationView.swift */,
+				D0445C982C7B46460059D522 /* String+Localizable.swift */,
+				D0445C9A2C7B48590059D522 /* UserInfoView.swift */,
+				D055E9932C91362400A97DD1 /* EtherscanResponse.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -214,6 +248,11 @@
 			dependencies = (
 			);
 			name = "GSG Wallet";
+			packageProductDependencies = (
+				D055E9962C914A1700A97DD1 /* Web3 */,
+				D055E9982C914A1700A97DD1 /* Web3ContractABI */,
+				D055E99A2C914A1700A97DD1 /* Web3PromiseKit */,
+			);
 			productName = "GSG Wallet";
 			productReference = D0445B4E2C6ED0150059D522 /* GSG Wallet.app */;
 			productType = "com.apple.product-type.application";
@@ -284,8 +323,12 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = D0445B452C6ED0150059D522;
+			packageReferences = (
+				D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */,
+			);
 			productRefGroup = D0445B4F2C6ED0150059D522 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -303,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0445B592C6ED0170059D522 /* Preview Assets.xcassets in Resources */,
+				D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */,
 				D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,10 +372,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D055E9942C91362400A97DD1 /* EtherscanResponse.swift in Sources */,
 				D0445B882C6ED2DF0059D522 /* IdentityVerificationView.swift in Sources */,
 				D0445B902C6ED38C0059D522 /* InviteFriendsView.swift in Sources */,
 				D0445B7C2C6ED1190059D522 /* HomeView.swift in Sources */,
 				D0445B8A2C6ED30F0059D522 /* AddressBookView.swift in Sources */,
+				D0445C8D2C7A64330059D522 /* AboutView.swift in Sources */,
 				D0445B8E2C6ED3650059D522 /* ServiceFeesView.swift in Sources */,
 				D0445B7E2C6ED1640059D522 /* RechargeView.swift in Sources */,
 				D0445B822C6ED24E0059D522 /* WithdrawView.swift in Sources */,
@@ -341,14 +387,20 @@
 				D0445B862C6ED2AF0059D522 /* AccountSecurityView.swift in Sources */,
 				D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */,
 				D0445B962C6ED68D0059D522 /* CountrySelectionView.swift in Sources */,
+				D0445C932C7B20700059D522 /* SecurityVerificationView.swift in Sources */,
+				D0445C952C7B27930059D522 /* VerificationView.swift in Sources */,
 				D0445B8C2C6ED3310059D522 /* AddAddressView.swift in Sources */,
 				D0445B942C6ED3FF0059D522 /* GlobalTransferView.swift in Sources */,
 				D0445BA22C6ED7880059D522 /* QRCodeScannerView.swift in Sources */,
+				D0445C9B2C7B485A0059D522 /* UserInfoView.swift in Sources */,
 				D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */,
 				D0445B9A2C6ED6D60059D522 /* CurrencyListView.swift in Sources */,
 				D0445B9C2C6ED7070059D522 /* SSLPinner.swift in Sources */,
+				D0445C992C7B46460059D522 /* String+Localizable.swift in Sources */,
 				D0445B842C6ED27A0059D522 /* AccountView.swift in Sources */,
 				D0445BA82C6ED86B0059D522 /* ExchangeView.swift in Sources */,
+				D0445C912C7AF5B70059D522 /* ForgotPasswordView.swift in Sources */,
+				D0445C8F2C7AC5920059D522 /* HelpView.swift in Sources */,
 				D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */,
 				D0445BA02C6ED7630059D522 /* LoginView.swift in Sources */,
 				D0445BA62C6ED8300059D522 /* CardBindingView.swift in Sources */,
@@ -387,6 +439,18 @@
 			targetProxy = D0445B692C6ED0170059D522 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D0445CB72C7B5BD40059D522 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0445CB82C7B5BD40059D522 /* zh-Hant */,
+				D0445CBA2C7B5BE90059D522 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D0445B702C6ED0170059D522 /* Debug */ = {
@@ -520,7 +584,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "此應用需要訪問相機以拍攝照片。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "此應用需要訪問相簿以選擇照片。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -551,7 +616,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "此應用需要訪問相機以拍攝照片。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "此應用需要訪問相簿以選擇照片。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -686,6 +752,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Boilertalk/Web3.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D055E9962C914A1700A97DD1 /* Web3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */;
+			productName = Web3;
+		};
+		D055E9982C914A1700A97DD1 /* Web3ContractABI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */;
+			productName = Web3ContractABI;
+		};
+		D055E99A2C914A1700A97DD1 /* Web3PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */;
+			productName = Web3PromiseKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D0445B462C6ED0150059D522 /* Project object */;
 }

@@ -8,42 +8,55 @@
 import SwiftUI
 
 struct IdentityVerificationView: View {
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
+
     var body: some View {
         List {
             Section {
-                NavigationLink(destination: Text("個人資訊")) {
+                NavigationLink(destination: Text(languageSpecificText(zhText: "個人資訊", enText: "Personal information"))) {
                     HStack {
-                        Label("個人資訊", systemImage: "person.fill")
+                        Label(languageSpecificText(zhText: "個人資訊", enText: "Personal information"), systemImage: "person.fill")
                         Spacer()
-                        Text("審核中")
+                        Text(languageSpecificText(zhText: "審核中", enText: "Reviewing"))
                             .foregroundColor(.blue)
                             .font(.subheadline)
                     }
                 }
 
-                NavigationLink(destination: Text("護照")) {
+                NavigationLink(destination: Text(languageSpecificText(zhText: "護照", enText: "Passport"))) {
                     HStack {
-                        Label("護照", systemImage: "doc.fill")
+                        Label(languageSpecificText(zhText: "護照", enText: "Passport"), systemImage: "doc.fill")
                         Spacer()
-                        Text("待完善")
+                        Text(languageSpecificText(zhText: "待完善", enText: "Incomplete"))
                             .foregroundColor(.orange)
                             .font(.subheadline)
                     }
                 }
 
-                NavigationLink(destination: Text("人臉辨識")) {
+                NavigationLink(destination: Text(languageSpecificText(zhText: "人臉辨識", enText: "Face identification"))) {
                     HStack {
-                        Label("人臉辨識", systemImage: "faceid")
+                        Label(languageSpecificText(zhText: "人臉辨識", enText: "Face identification"), systemImage: "faceid")
                         Spacer()
-                        Text("審核中")
+                        Text(languageSpecificText(zhText: "審核中", enText: "Reviewing"))
                             .foregroundColor(.blue)
                             .font(.subheadline)
                     }
                 }
             }
         }
-        .navigationTitle("身份認證")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(languageSpecificText(zhText: "身份認證", enText: "Identity authentication"))
+                    .font(.headline)
+                    .bold()
+            }
+        }
         .listStyle(GroupedListStyle())
+    }
+    
+    private func languageSpecificText(zhText: String, enText: String) -> String {
+        return selectedLanguage == "zh-Hant" ? zhText : enText
     }
 }
 
