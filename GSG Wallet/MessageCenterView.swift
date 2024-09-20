@@ -13,7 +13,7 @@ struct MessageCenterView: View {
     var body: some View {
         VStack {
             // 顶部的切换按钮
-            Picker(selection: $selectedTab, label: Text("选择消息类型")) {
+            Picker(selection: $selectedTab, label: Text("選擇消息類型")) {
                 Text("我的消息").tag(0)
                 Text("公用訊息").tag(1)
             }

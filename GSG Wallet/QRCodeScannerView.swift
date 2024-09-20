@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
-    class QRCodeCoordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+    class QRCodeCoordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         var parent: QRCodeScannerView
 
         init(parent: QRCodeScannerView) {
@@ -18,15 +18,36 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
                 parent.didFindCode(stringValue)
             }
         }
+        
+        // Handle image picker (album) result
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                // Process the selected image here (e.g., run OCR, scan for QR codes, etc.)
+                print("Selected image from album: \(selectedImage)")
+            }
+            parent.onDismiss?()
+            picker.dismiss(animated: true)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.onDismiss?()
+            picker.dismiss(animated: true)
+        }
 
         @objc func backButtonTapped() {
             parent.onDismiss?()
+        }
+        
+        // Show album (photo library)
+        @objc func albumButtonTapped() {
+            parent.showImagePicker?()
         }
     }
 
     var didFindCode: (String) -> Void
     var didFail: (() -> Void)? = nil
     var onDismiss: (() -> Void)? = nil // 这里添加一个回调，用于处理点击返回按钮
+    var showImagePicker: (() -> Void)? = nil // Closure for showing the image picker
 
     func makeCoordinator() -> QRCodeCoordinator {
         QRCodeCoordinator(parent: self)
@@ -35,6 +56,74 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         let viewController = UIViewController()
         let captureSession = AVCaptureSession()
+        
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+            print("Failed to get the camera device.")
+            didFail?() // 如果相机设备获取失败，也触发失败回调
+            return viewController
+        }
+        
+        let videoInput: AVCaptureDeviceInput
+
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            print("Failed to create video input.")
+            didFail?() // 如果视频输入创建失败，也触发失败回调
+            return viewController
+        }
+        
+        if captureSession.canAddInput(videoInput) {
+            captureSession.addInput(videoInput)
+        } else {
+            print("Could not add video input to capture session.")
+            didFail?() // 如果视频输入添加失败，也触发失败回调
+            return viewController
+        }
+        
+        let metadataOutput = AVCaptureMetadataOutput()
+        
+        if captureSession.canAddOutput(metadataOutput) {
+            captureSession.addOutput(metadataOutput)
+
+            metadataOutput.setMetadataObjectsDelegate(context.coordinator, queue: DispatchQueue.main)
+            metadataOutput.metadataObjectTypes = [.qr]
+        } else {
+            print("Could not add metadata output to capture session.")
+            didFail?() // 如果元数据输出添加失败，也触发失败回调
+            return viewController
+        }
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = viewController.view.layer.bounds
+        previewLayer.videoGravity = .resizeAspectFill
+        viewController.view.layer.addSublayer(previewLayer)
+
+        captureSession.startRunning()
+        print("AVCaptureSession started") // 在这里打印日志，确保 captureSession 启动
+
+        // Add a square frame overlay to guide the user
+        let overlayView = UIView(frame: viewController.view.bounds)
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        viewController.view.addSubview(overlayView)
+
+        // Create a square hole in the overlay
+        let scanFrame = CGRect(x: viewController.view.bounds.width * 0.2, y: viewController.view.bounds.height * 0.3, width: viewController.view.bounds.width * 0.6, height: viewController.view.bounds.width * 0.6)
+
+        let path = UIBezierPath(rect: overlayView.bounds)
+        let scanPath = UIBezierPath(rect: scanFrame)
+        path.append(scanPath.reversing())
+
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        overlayView.layer.mask = maskLayer
+
+        // Add the scan frame border (optional)
+        let scanBorder = CALayer()
+        scanBorder.frame = scanFrame
+        scanBorder.borderWidth = 2
+        scanBorder.borderColor = UIColor.purple.cgColor
+        viewController.view.layer.addSublayer(scanBorder)
 
         // 添加返回按钮
         let backButton = UIButton(type: .system)
@@ -50,6 +139,20 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             backButton.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 50)
         ])
         
+        // Add album button on the right
+        let albumButton = UIButton(type: .system)
+        albumButton.setTitle("相簿", for: .normal)
+        albumButton.addTarget(context.coordinator, action: #selector(QRCodeCoordinator.albumButtonTapped), for: .touchUpInside)
+        albumButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        viewController.view.addSubview(albumButton)
+        viewController.view.bringSubviewToFront(albumButton)
+
+        NSLayoutConstraint.activate([
+            albumButton.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
+            albumButton.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 50)
+        ])
+
         // 检查相机权限
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -68,50 +171,6 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             didFail?()
             return viewController
         }
-
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
-            print("Failed to get the camera device.")
-            didFail?() // 如果相机设备获取失败，也触发失败回调
-            return viewController
-        }
-        let videoInput: AVCaptureDeviceInput
-
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
-            print("Failed to create video input.")
-            didFail?() // 如果视频输入创建失败，也触发失败回调
-            return viewController
-        }
-
-        if captureSession.canAddInput(videoInput) {
-            captureSession.addInput(videoInput)
-        } else {
-            print("Could not add video input to capture session.")
-            didFail?() // 如果视频输入添加失败，也触发失败回调
-            return viewController
-        }
-
-        let metadataOutput = AVCaptureMetadataOutput()
-
-        if captureSession.canAddOutput(metadataOutput) {
-            captureSession.addOutput(metadataOutput)
-
-            metadataOutput.setMetadataObjectsDelegate(context.coordinator, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [.qr]
-        } else {
-            print("Could not add metadata output to capture session.")
-            didFail?() // 如果元数据输出添加失败，也触发失败回调
-            return viewController
-        }
-
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = viewController.view.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        viewController.view.layer.addSublayer(previewLayer)
-
-        captureSession.startRunning()
-        print("AVCaptureSession started") // 在这里打印日志，确保 captureSession 启动
 
         return viewController
     }
