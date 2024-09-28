@@ -21,6 +21,7 @@ struct IdentityVerificationView: View {
                             .foregroundColor(.blue)
                             .font(.subheadline)
                     }
+                    .padding(.vertical, 8) // Increase vertical padding
                 }
 
                 NavigationLink(destination: Text(languageSpecificText(zhText: "護照", enText: "Passport"))) {
@@ -31,6 +32,7 @@ struct IdentityVerificationView: View {
                             .foregroundColor(.orange)
                             .font(.subheadline)
                     }
+                    .padding(.vertical, 6) // Increase vertical padding
                 }
 
                 NavigationLink(destination: Text(languageSpecificText(zhText: "人臉辨識", enText: "Face identification"))) {
@@ -41,6 +43,8 @@ struct IdentityVerificationView: View {
                             .foregroundColor(.blue)
                             .font(.subheadline)
                     }
+                    .padding(.vertical, 6) // Increase vertical padding
+
                 }
             }
         }
