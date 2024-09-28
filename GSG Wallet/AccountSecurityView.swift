@@ -23,22 +23,27 @@ struct AccountSecurityView: View {
             Section {
                 NavigationLink(destination: Text(languageSpecificText(zhText: "修改手機號碼", enText: "Change phone number"))) {
                     Label(languageSpecificText(zhText: "修改手機號碼", enText: "Change phone number"), systemImage: "phone.fill")
+                        .padding(.vertical, 7) // Increase vertical padding
                 }
 
                 NavigationLink(destination: Text(languageSpecificText(zhText: "變更信箱", enText: "Change email"))) {
                     Label(languageSpecificText(zhText: "變更信箱", enText: "Change email"), systemImage: "envelope.fill")
+                        .padding(.vertical, 7) // Increase vertical padding
                 }
 
                 NavigationLink(destination: Text(languageSpecificText(zhText: "登入密碼", enText: "Change login password"))) {
                     Label(languageSpecificText(zhText: "登入密碼", enText: "Change login password"), systemImage: "lock.fill")
+                        .padding(.vertical, 6) // Increase vertical padding
                 }
 
                 NavigationLink(destination: Text(languageSpecificText(zhText: "支付密碼", enText: "Change payment password"))) {
                     Label(languageSpecificText(zhText: "支付密碼", enText: "Change payment password"), systemImage: "key.fill")
+                        .padding(.vertical, 6) // Increase vertical padding
                 }
 
                 Toggle(isOn: $isFaceIDEnabled) {
                     Label(languageSpecificText(zhText: "面容/指紋登入", enText: "FaceID/TouchID login"), systemImage: "faceid")
+                        .padding(.vertical, 6) // Increase vertical padding
                 }
                 .onChange(of: isFaceIDEnabled) { newValue in
                     if newValue {
