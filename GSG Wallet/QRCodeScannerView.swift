@@ -234,7 +234,10 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = context.coordinator
-            uiViewController.present(picker, animated: true, completion: nil)
+            uiViewController.present(picker, animated: true) {
+                // Set isShowingImagePicker to false after presenting the picker
+                isShowingImagePicker = false
+            }
         }
     }
     
