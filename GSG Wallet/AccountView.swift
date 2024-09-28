@@ -44,6 +44,7 @@ struct AccountView: View {
                     Section {
                         NavigationLink(destination: AccountSecurityView()) {
                             Label(languageSpecificText(zhText: "帳戶&安全", enText: "Account & Security"), systemImage: "person.crop.circle")
+                                .padding(.vertical, 6) // Increase vertical padding
                         }
                         
                         NavigationLink(destination: IdentityVerificationView()) {
@@ -54,54 +55,76 @@ struct AccountView: View {
                                     .foregroundColor(.orange)
                                     .font(.subheadline)
                             }
+                            .padding(.vertical, 6) // Increase vertical padding
                         }
                         
                         Button(action: {
                             showAlertType = .missingInfo // 点击帐户管理时触发 missingInfo 的 alert
                         }) {
                             HStack {
-                                Label(languageSpecificText(zhText: "帳戶管理", enText: "Account management"), systemImage: "gear")
+                                Label {
+                                    Text(languageSpecificText(zhText: "帳戶管理", enText: "Account management"))
+                                        .foregroundColor(.black) // Set the text color to black
+                                } icon: {
+                                    Image(systemName: "gear")
+                                }
+                                
                                 Spacer() // 在 Label 和箭头图标之间添加间隔
+                                
                                 Image(systemName: "chevron.right") // 使用系统的向右箭头图标
                                     .foregroundColor(.gray) // 设置箭头的颜色
                             }
+                            .padding(.vertical, 6) // Increase vertical padding
                         }
                         
                         NavigationLink(destination: AddressBookView()) {
                             Label(languageSpecificText(zhText: "地址簿", enText: "Address book"), systemImage: "bookmark")
+                                .padding(.vertical, 6) // Increase vertical padding
                         }
-                    }
-                    
-                    Section {
+                        
                         NavigationLink(destination: ServiceFeesView()) {
                             Label(languageSpecificText(zhText: "服務費用", enText: "Service fee"), systemImage: "doc.text.magnifyingglass")
+                                .padding(.vertical, 6) // Increase vertical padding
                         }
-                        
-//                        NavigationLink(destination: InviteFriendsView()) {
-//                            Label("邀請好友", systemImage: "gift")
-//                        }
-                        
+                            
                         Button(action: {
                             showLanguageSheet.toggle() // 显示语言选择视图
                         }) {
-                            Label(languageSpecificText(zhText: "語言設定", enText: "Language setting"), systemImage: "globe")
+                            HStack {
+                                Label {
+                                    Text(languageSpecificText(zhText: "語言設定", enText: "Language setting"))
+                                        .foregroundColor(.black) // Set the text color to black
+                                } icon: {
+                                    Image(systemName: "globe")
+                                }
+                                
+                                Spacer() // Add some space between the text and the chevron
+                                Image(systemName: "chevron.right") // Add the chevron icon
+                                    .foregroundColor(.gray) // You can set the color of the chevron here
+                            }
+                            .padding(.vertical, 6) // Increase vertical padding
                         }
 
                         Button(action: {
                             showHelpSheet.toggle() // 显示帮助视图
                         }) {
-                            Label(languageSpecificText(zhText: "幫助", enText: "Help"), systemImage: "questionmark.circle")
+                            Label {
+                                Text(languageSpecificText(zhText: "幫助", enText: "Help"))
+                                    .foregroundColor(.black) // Set the text color to black
+                            } icon: {
+                                Image(systemName: "questionmark.circle")
+                            }
+                            .padding(.vertical, 6) // Increase vertical padding
                         }
-                        
+                            
                         NavigationLink(destination: AboutView()) {
                             Label(languageSpecificText(zhText: "關於GSG Wallet", enText: "About GSG Wallet"), systemImage: "exclamationmark.circle")
+                                .padding(.vertical, 6) // Increase vertical padding
                         }
                     }
                 }
                 .listStyle(GroupedListStyle())
-                
-                Spacer()
-                
+                                
                 Button(action: {
                     // 显示登出确认弹窗
                     showAlertType = .logoutConfirmation
