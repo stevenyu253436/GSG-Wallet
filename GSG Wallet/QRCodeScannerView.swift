@@ -1,8 +1,10 @@
 import SwiftUI
 import AVFoundation
+import PhotosUI
+import CoreImage
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
-    class QRCodeCoordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    class QRCodeCoordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
         var parent: QRCodeScannerView
 
         init(parent: QRCodeScannerView) {
@@ -33,6 +35,53 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             parent.onDismiss?()
             picker.dismiss(animated: true)
         }
+        
+        // Handle PHPicker result
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            print("Entered picker(_:didFinishPicking:)")
+            picker.dismiss(animated: true)
+            guard let result = results.first else {
+                print("No image selected, closing image picker.")
+                parent.isShowingImagePicker = false
+                return
+            }
+
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                    if let selectedImage = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self?.parent.selectedImage = selectedImage
+
+                            // Process the image for QR code detection
+                            self?.detectQRCode(in: selectedImage)
+                        }
+                    }
+                    // Set isShowingImagePicker to false after finishing the picker action
+                    DispatchQueue.main.async {
+                        print("Dismissing image picker after processing.")
+                        self?.parent.isShowingImagePicker = false
+                    }
+                }
+            } else {
+                // Set isShowingImagePicker to false if the item cannot be loaded
+                print("Could not load the selected item as an image, dismissing picker.")
+                parent.isShowingImagePicker = false
+            }
+        }
+        
+        private func detectQRCode(in image: UIImage) {
+            guard let ciImage = CIImage(image: image) else { return }
+            
+            let context = CIContext()
+            let options: [String: Any] = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+            let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+            
+            if let features = qrDetector?.features(in: ciImage) as? [CIQRCodeFeature], let qrCode = features.first?.messageString {
+                DispatchQueue.main.async {
+                    self.parent.didFindCode(qrCode) // Update the withdrawal address
+                }
+            }
+        }
 
         @objc func backButtonTapped() {
             parent.onDismiss?()
@@ -40,14 +89,16 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
         
         // Show album (photo library)
         @objc func albumButtonTapped() {
-            parent.showImagePicker?()
+            print("Album button tapped") // Debug statement to confirm the method is called
+            parent.isShowingImagePicker = true // Trigger the display of the sheet
         }
     }
 
     var didFindCode: (String) -> Void
     var didFail: (() -> Void)? = nil
     var onDismiss: (() -> Void)? = nil // 这里添加一个回调，用于处理点击返回按钮
-    var showImagePicker: (() -> Void)? = nil // Closure for showing the image picker
+    @State private var isShowingImagePicker = false // State variable to control the sheet presentation
+    @State var selectedImage: UIImage? = nil // To store the selected image
 
     func makeCoordinator() -> QRCodeCoordinator {
         QRCodeCoordinator(parent: self)
@@ -175,8 +226,18 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
         return viewController
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        if isShowingImagePicker {
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .images
+            
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = context.coordinator
+            uiViewController.present(picker, animated: true, completion: nil)
+        }
+    }
+    
     // 提供一个默认的失败处理方法
     static func dismantleUIViewController(_ uiViewController: UIViewController, coordinator: QRCodeCoordinator) {
         // 停止捕捉会话
