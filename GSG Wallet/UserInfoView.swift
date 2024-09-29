@@ -33,7 +33,7 @@ struct UserInfoView: View {
                         .font(.title3)
                         .fontWeight(.bold)
                     
-                    Text("Chewei Yu")
+                    Text("\(globalFirstName) \(globalLastName)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }

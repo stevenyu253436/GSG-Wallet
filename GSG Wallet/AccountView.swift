@@ -24,6 +24,7 @@ struct AccountView: View {
     @State private var imagePickerSourceType: UIImagePickerController.SourceType = .camera // 控制图片选择的来源
     @State private var selectedImage: UIImage? // 保存选择的图片
     @State private var showLanguageSheet = false // 控制语言选择视图的显示
+    @State private var navigateToIdentityVerification = false
 
     enum AlertType: Identifiable {
         case missingInfo
@@ -108,13 +109,20 @@ struct AccountView: View {
                         Button(action: {
                             showHelpSheet.toggle() // 显示帮助视图
                         }) {
-                            Label {
-                                Text(languageSpecificText(zhText: "幫助", enText: "Help"))
-                                    .foregroundColor(.black) // Set the text color to black
-                            } icon: {
-                                Image(systemName: "questionmark.circle")
+                            HStack {
+                                Label {
+                                    Text(languageSpecificText(zhText: "幫助", enText: "Help"))
+                                        .foregroundColor(.black) // Set the text color to black
+                                } icon: {
+                                    Image(systemName: "questionmark.circle")
+                                }
+                                .padding(.vertical, 6) // Increase vertical padding
+
+                                Spacer() // Add space between the label and the chevron
+
+                                Image(systemName: "chevron.right") // Add the chevron icon
+                                    .foregroundColor(.gray) // Set the color of the chevron to gray
                             }
-                            .padding(.vertical, 6) // Increase vertical padding
                         }
                             
                         NavigationLink(destination: AboutView()) {
@@ -125,6 +133,12 @@ struct AccountView: View {
                 }
                 .listStyle(GroupedListStyle())
                                 
+                // Example usage of if-else navigation
+                NavigationLink(destination: IdentityVerificationView(), isActive: $navigateToIdentityVerification) {
+                    EmptyView()
+                }
+                .hidden() // Keep it hidden in the UI
+                
                 Button(action: {
                     // 显示登出确认弹窗
                     showAlertType = .logoutConfirmation
@@ -165,8 +179,7 @@ struct AccountView: View {
                         title: Text(languageSpecificText(zhText: "提示", enText: "Warning")),
                         message: Text(languageSpecificText(zhText: "您還沒有完善基本訊息，請先完善基本資訊。", enText: "You have not completed the basic information, please complete it first.")),
                         primaryButton: .default(Text(languageSpecificText(zhText: "確認", enText: "Confirm"))) {
-                            // 使用路径导航到身份认证页面
-                            navigationPath.append("IdentityVerification")
+                            navigateToIdentityVerification = true // Activate NavigationLink
                         },
                         secondaryButton: .cancel(Text(languageSpecificText(zhText: "取消", enText: "Cancel")))
                     )

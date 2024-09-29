@@ -49,6 +49,7 @@
 		D055E9972C914A1700A97DD1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9962C914A1700A97DD1 /* Web3 */; };
 		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; };
 		D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D055E99A2C914A1700A97DD1 /* Web3PromiseKit */; };
+		D0DDDB602CA8E0C700A78A87 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		D0445CB82C7B5BD40059D522 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D0445CBA2C7B5BE90059D522 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D055E9932C91362400A97DD1 /* EtherscanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtherscanResponse.swift; sourceTree = "<group>"; };
+		D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				D0445C982C7B46460059D522 /* String+Localizable.swift */,
 				D0445C9A2C7B48590059D522 /* UserInfoView.swift */,
 				D055E9932C91362400A97DD1 /* EtherscanResponse.swift */,
+				D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				D0445B862C6ED2AF0059D522 /* AccountSecurityView.swift in Sources */,
 				D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */,
 				D0445B962C6ED68D0059D522 /* CountrySelectionView.swift in Sources */,
+				D0DDDB602CA8E0C700A78A87 /* PersonalInformationView.swift in Sources */,
 				D0445C932C7B20700059D522 /* SecurityVerificationView.swift in Sources */,
 				D0445C952C7B27930059D522 /* VerificationView.swift in Sources */,
 				D0445B8C2C6ED3310059D522 /* AddAddressView.swift in Sources */,
