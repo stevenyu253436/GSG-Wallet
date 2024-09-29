@@ -52,6 +52,9 @@ struct LoginView: View {
                             .keyboardType(.phonePad)
                             .font(.headline)
                             .foregroundColor(.black)
+                            .onChange(of: phoneNumber) { newValue in
+                                globalPhoneNumber = newValue // Update the global variable whenever `phoneNumber` changes
+                            }
                     }
                     .padding()
                     .background(Color(.systemGray6))

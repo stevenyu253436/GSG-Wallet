@@ -50,6 +50,7 @@
 		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; };
 		D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D055E99A2C914A1700A97DD1 /* Web3PromiseKit */; };
 		D0DDDB602CA8E0C700A78A87 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */; };
+		D0DDDB622CA92B4C00A78A87 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDDB612CA92B4C00A78A87 /* GlobalVariables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		D0445CBA2C7B5BE90059D522 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D055E9932C91362400A97DD1 /* EtherscanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtherscanResponse.swift; sourceTree = "<group>"; };
 		D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
+		D0DDDB612CA92B4C00A78A87 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				D0445C9A2C7B48590059D522 /* UserInfoView.swift */,
 				D055E9932C91362400A97DD1 /* EtherscanResponse.swift */,
 				D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */,
+				D0DDDB612CA92B4C00A78A87 /* GlobalVariables.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				D0445B882C6ED2DF0059D522 /* IdentityVerificationView.swift in Sources */,
 				D0445B902C6ED38C0059D522 /* InviteFriendsView.swift in Sources */,
 				D0445B7C2C6ED1190059D522 /* HomeView.swift in Sources */,
+				D0DDDB622CA92B4C00A78A87 /* GlobalVariables.swift in Sources */,
 				D0445B8A2C6ED30F0059D522 /* AddressBookView.swift in Sources */,
 				D0445C8D2C7A64330059D522 /* AboutView.swift in Sources */,
 				D0445B8E2C6ED3650059D522 /* ServiceFeesView.swift in Sources */,

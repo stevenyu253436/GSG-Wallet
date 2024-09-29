@@ -8,9 +8,6 @@
 import Foundation
 import SwiftUI
 
-var globalFirstName: String = "Chewei"
-var globalLastName: String = "Yu"
-
 struct PersonalInformationView: View {
     @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
     

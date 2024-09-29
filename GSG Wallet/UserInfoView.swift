@@ -23,13 +23,13 @@ struct UserInfoView: View {
                         .fill(Color.purple)
                         .frame(width: 60, height: 60)
                     
-                    Text("CY")
+                    Text("\(globalFirstName.prefix(1))\(globalLastName.prefix(1))")
                         .font(.title)
                         .foregroundColor(.white)
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("097****868")
+                    Text(maskedPhoneNumber(globalPhoneNumber)) // Use the masked phone number
                         .font(.title3)
                         .fontWeight(.bold)
                     
@@ -63,5 +63,12 @@ struct UserInfoView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(sourceType: imagePickerSourceType, selectedImage: $selectedImage)
         }
+    }
+    
+    func maskedPhoneNumber(_ phoneNumber: String) -> String {
+        guard phoneNumber.count == 10 else { return phoneNumber } // Ensure it's 10 characters
+        let start = phoneNumber.prefix(3)  // First 3 digits
+        let end = phoneNumber.suffix(3)    // Last 3 digits
+        return "\(start)****\(end)"
     }
 }

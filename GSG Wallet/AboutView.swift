@@ -35,22 +35,6 @@ struct AboutView: View {
             .padding(.bottom, 40) // 添加一定的底部内边距
             
             Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
-            
-            Spacer()
         }
         .padding() // 添加一些 padding 来让视图不会贴边
         .navigationBarTitleDisplayMode(.inline)
