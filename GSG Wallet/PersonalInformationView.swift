@@ -14,8 +14,6 @@ var globalLastName: String = "Yu"
 struct PersonalInformationView: View {
     @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant"
     
-    @State private var firstName = "Chewei" // Sample first name
-    @State private var lastName = "Yu" // Sample last name
     @State private var birthdate = Date()
     @State private var nationality = "中国台湾"
     @State private var residenceCountry = "中国台湾"
