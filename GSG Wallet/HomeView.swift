@@ -166,7 +166,7 @@ struct HomeView: View {
 
         // 請求的 body
         let body: [String: String] = [
-            "address": "TAMGw3VQMj9RUDQXAMPYVE7TqrckpqHrrS"
+            "address": globalTRC20Address
         ]
         
         // 將 body 轉換為 JSON 數據
@@ -212,7 +212,7 @@ struct HomeView: View {
         let module = "account"
         let action = "tokenbalance"
         let contractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-        let address = "0x1E7B10AaF9888a6b1FED08E72859351d465c5932"
+        let address = globalERC20Address
         let tag = "latest"
         let apiKey = "H6WZH2NCZVQCQUNQJIKAH9TRFCINEKHNI5"
         
