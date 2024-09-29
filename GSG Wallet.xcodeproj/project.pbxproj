@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D017F4B32CA9EC8900C71D18 /* AssetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */; };
 		D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */; };
 		D0445B542C6ED0150059D522 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B532C6ED0150059D522 /* ContentView.swift */; };
 		D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0445B552C6ED0170059D522 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailView.swift; sourceTree = "<group>"; };
 		D0445B4E2C6ED0150059D522 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSG Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletApp.swift; sourceTree = "<group>"; };
 		D0445B532C6ED0150059D522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				D055E9932C91362400A97DD1 /* EtherscanResponse.swift */,
 				D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */,
 				D0DDDB612CA92B4C00A78A87 /* GlobalVariables.swift */,
+				D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */,
 				D0445B9A2C6ED6D60059D522 /* CurrencyListView.swift in Sources */,
 				D0445B9C2C6ED7070059D522 /* SSLPinner.swift in Sources */,
+				D017F4B32CA9EC8900C71D18 /* AssetDetailView.swift in Sources */,
 				D0445C992C7B46460059D522 /* String+Localizable.swift in Sources */,
 				D0445B842C6ED27A0059D522 /* AccountView.swift in Sources */,
 				D0445BA82C6ED86B0059D522 /* ExchangeView.swift in Sources */,
