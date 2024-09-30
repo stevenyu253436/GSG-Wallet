@@ -8,6 +8,23 @@
 import Foundation
 import SwiftUI
 
+struct EtherscanTransaction: Identifiable {
+    var id = UUID()
+    var hash: String
+    var timeStamp: String
+    var from: String
+    var to: String
+    var value: String
+    var tokenSymbol: String
+    
+    var formattedDate: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timeStamp)!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: date)
+    }
+}
+
 struct AssetDetailView: View {
     var assetName: String
     var assetBalance: Double
@@ -16,13 +33,17 @@ struct AssetDetailView: View {
     var unavailableBalance: Double = 0.0
     var erc20Balance: Double
     var trc20Balance: Double
-
+    var isERC20: Bool = false // Add this
+    var isTRC20: Bool = false // Add this
+    
     // State variable to control visibility of asset balance
     @State private var isBalanceHidden = false
     @State private var showWithdrawView = false // For fullScreenCover
     @State private var showRechargeView = false // New state variable for RechargeView
     @State private var showExchangeView = false
     @State private var hasHistory = false // New variable to control history display
+    @State private var showHistoryDetail = false // New variable for HistoryDetailView navigation
+    @State private var transactions: [EtherscanTransaction] = [] // For storing fetched transactions
 
     var body: some View {
         VStack(spacing: 20) {
@@ -150,26 +171,86 @@ struct AssetDetailView: View {
                         .font(.headline)
                         .padding(.leading, 16)
                     Spacer()
-                    // More with chevron
-                    HStack {
-                        Text("更多")
-                            .font(.headline)
-                        Image(systemName: "chevron.right")
-                            .font(.headline)
+                    // Use NavigationLink for "More"
+                    NavigationLink(destination: HistoryDetailView(), isActive: $showHistoryDetail) {
+                        Button(action: {
+                            showHistoryDetail = true
+                        }) {
+                            HStack {
+                                Text("更多")
+                                    .font(.headline)
+                                Image(systemName: "chevron.right")
+                                    .font(.headline)
+                            }
+                        }
                     }
                     .padding(.trailing, 16)
                 }
                 
-                if !hasHistory {
+                // Display transaction history
+                if isERC20 {
+                    VStack {
+                        List(transactions) { transaction in
+                            HStack {
+                                if transaction.value.contains("-") {
+                                    Image(systemName: "arrow.up.circle")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.black)
+                                        .padding(.trailing, 10)
+                                } else {
+                                    Image(systemName: "arrow.down.circle")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.black)
+                                        .padding(.trailing, 10)
+                                }
+
+                                VStack(alignment: .leading) {
+                                    if transaction.value.contains("-") {
+                                        Text("提現") // Withdrawal
+                                            .font(.subheadline)
+                                            .foregroundColor(.black)
+                                    } else {
+                                        Text("充值") // Deposit
+                                            .font(.subheadline)
+                                            .foregroundColor(.black)
+                                    }
+
+                                    Text(transaction.formattedDate)
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Spacer()
+                                
+                                if let value = Double(transaction.value) {
+                                    Text("+\(value / 1_000_000, specifier: "%.6f") \(transaction.tokenSymbol)")
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                } else {
+                                    Text("Invalid Value")
+                                        .font(.headline)
+                                        .foregroundColor(.red)
+                                }
+                            }
+                            .padding(.vertical, 5)
+                        }
+                    }
+                    .onAppear(perform: fetchERC20History)
+                } else if isTRC20 {
                     Spacer()
-                    
-                    // Center icon
                     Image(systemName: "doc.text.magnifyingglass")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
                         .foregroundColor(.purple)
-                    
+                    Spacer()
+                } else {
+                    Spacer()
+                    Image(systemName: "doc.text.magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.purple)
                     Spacer()
                 }
             }
@@ -180,18 +261,66 @@ struct AssetDetailView: View {
             WithdrawView(erc20Balance: erc20Balance, trc20Balance: trc20Balance)
         }
     }
+    
+    func fetchERC20History() {
+        let url = "https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0xdAC17F958D2ee523a2206206994597C13D831ec7&address=\(globalERC20Address)&startblock=0&endblock=99999999&sort=asc&apikey=H6WZH2NCZVQCQUNQJIKAH9TRFCINEKHNI5"
+        
+        guard let requestURL = URL(string: url) else { return }
+        
+        URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(EtherscanTransactionResponse.self, from: data)
+                    if decodedResponse.status == "1" {
+                        DispatchQueue.main.async {
+                            self.transactions = decodedResponse.result.map {
+                                EtherscanTransaction(
+                                    hash: $0.hash,
+                                    timeStamp: $0.timeStamp,
+                                    from: $0.from,
+                                    to: $0.to,
+                                    value: "\($0.value)",
+                                    tokenSymbol: $0.tokenSymbol
+                                )
+                            }
+                            hasHistory = !self.transactions.isEmpty
+                        }
+                    }
+                } catch {
+                    print("Error decoding: \(error)")
+                }
+            }
+        }.resume()
+    }
+}
+
+struct EtherscanTransactionResponse: Codable {
+    let status: String
+    let message: String
+    let result: [EtherscanTransactionData]
+}
+
+struct EtherscanTransactionData: Codable {
+    let hash: String
+    let timeStamp: String
+    let from: String
+    let to: String
+    let value: String
+    let tokenSymbol: String
 }
 
 struct AssetDetailView_Previews: PreviewProvider {
     static var previews: some View {
         AssetDetailView(
             assetName: "USDT-ERC20",
-            assetBalance: 13.800000,
-            equivalentBalance: 13.80,
-            availableBalance: 13.800000,
+            assetBalance: 15.000000,
+            equivalentBalance: 15.00,
+            availableBalance: 15.000000,
             unavailableBalance: 0.0,
-            erc20Balance: 13.800000,
-            trc20Balance: 0
+            erc20Balance: 15.000000,
+            trc20Balance: 0,
+            isERC20: true,
+            isTRC20: false
         )
     }
 }

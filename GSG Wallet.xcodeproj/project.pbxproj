@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D017F4B32CA9EC8900C71D18 /* AssetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */; };
+		D017F4B52CAA46ED00C71D18 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */; };
 		D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */; };
 		D0445B542C6ED0150059D522 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B532C6ED0150059D522 /* ContentView.swift */; };
 		D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0445B552C6ED0170059D522 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailView.swift; sourceTree = "<group>"; };
+		D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		D0445B4E2C6ED0150059D522 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSG Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletApp.swift; sourceTree = "<group>"; };
 		D0445B532C6ED0150059D522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */,
 				D0DDDB612CA92B4C00A78A87 /* GlobalVariables.swift */,
 				D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */,
+				D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				D0445BA22C6ED7880059D522 /* QRCodeScannerView.swift in Sources */,
 				D0445C9B2C7B485A0059D522 /* UserInfoView.swift in Sources */,
 				D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */,
+				D017F4B52CAA46ED00C71D18 /* HistoryDetailView.swift in Sources */,
 				D0445B9A2C6ED6D60059D522 /* CurrencyListView.swift in Sources */,
 				D0445B9C2C6ED7070059D522 /* SSLPinner.swift in Sources */,
 				D017F4B32CA9EC8900C71D18 /* AssetDetailView.swift in Sources */,

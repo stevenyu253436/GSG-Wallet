@@ -112,7 +112,7 @@ struct HomeView: View {
                 // 資產列表
                 List {
                     // USD Row with NavigationLink
-                    NavigationLink(destination: AssetDetailView(assetName: "USD", assetBalance: usdAmount, equivalentBalance: usdAmount, availableBalance: usdAmount, unavailableBalance: 0.0, erc20Balance: 0.0, trc20Balance: 0.0)) {
+                    NavigationLink(destination: AssetDetailView(assetName: "USD", assetBalance: 0.0, equivalentBalance: 0.0, availableBalance: 0.0, unavailableBalance: 0.0, erc20Balance: 0, trc20Balance: 0, isERC20: true, isTRC20: false)) {
                         AssetRow(
                             assetName: "USD",
                             assetDescription: "US Dollars",
@@ -122,14 +122,25 @@ struct HomeView: View {
                         )
                     }
                     
-                    // USDT Row with NavigationLink
-                    NavigationLink(destination: AssetDetailView(assetName: "USDT", assetBalance: usdtERC20Amount + usdtTRC20Amount, equivalentBalance: usdtERC20Amount + usdtTRC20Amount, availableBalance: usdtERC20Amount + usdtTRC20Amount, unavailableBalance: 0.0, erc20Balance: usdtERC20Amount, trc20Balance: usdtTRC20Amount)) {
+                    // USDT-ERC20 Row with NavigationLink
+                    NavigationLink(destination: AssetDetailView(assetName: "USDT-ERC20", assetBalance: usdtERC20Amount, equivalentBalance: usdtERC20Amount, availableBalance: usdtERC20Amount, unavailableBalance: 0.0, erc20Balance: usdtERC20Amount, trc20Balance: 0, isERC20: false, isTRC20: true)) {
                         AssetRow(
-                            assetName: "USDT",
-                            assetDescription: "Tether",
-                            balance: String(format: "%.6f", usdtERC20Amount + usdtTRC20Amount),
-                            equivalent: String(format: "≈$%.2f", usdtERC20Amount + usdtTRC20Amount),
-                            iconName: "tether-usdt-logo"
+                            assetName: "USDT-ERC20",
+                            assetDescription: "Tether (ERC20)",
+                            balance: String(format: "%.6f", usdtERC20Amount),
+                            equivalent: String(format: "≈$%.2f", usdtERC20Amount),
+                            iconName: "tether-usdt-logo" // Replace with your icon name
+                        )
+                    }
+
+                    // USDT-TRC20 Row with NavigationLink
+                    NavigationLink(destination: AssetDetailView(assetName: "USDT-TRC20", assetBalance: usdtTRC20Amount, equivalentBalance: usdtTRC20Amount, availableBalance: usdtTRC20Amount, unavailableBalance: 0.0, erc20Balance: 0, trc20Balance: usdtTRC20Amount)) {
+                        AssetRow(
+                            assetName: "USDT-TRC20",
+                            assetDescription: "Tether (TRC20)",
+                            balance: String(format: "%.6f", usdtTRC20Amount),
+                            equivalent: String(format: "≈$%.2f", usdtTRC20Amount),
+                            iconName: "tether-usdt-logo" // Replace with your icon name
                         )
                     }
                 }
@@ -215,10 +226,9 @@ struct HomeView: View {
         let contractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
         let address = globalERC20Address
         let tag = "latest"
-        let apiKey = "H6WZH2NCZVQCQUNQJIKAH9TRFCINEKHNI5"
         
         // 生成 URL 字符串
-        guard let url = URL(string: "\(baseUrl)?module=\(module)&action=\(action)&contractaddress=\(contractAddress)&address=\(address)&tag=\(tag)&apikey=\(apiKey)") else {
+        guard let url = URL(string: "\(baseUrl)?module=\(module)&action=\(action)&contractaddress=\(contractAddress)&address=\(address)&tag=\(tag)&apikey=\(globalApiKey)") else {
             print("Invalid URL")
             return
         }
