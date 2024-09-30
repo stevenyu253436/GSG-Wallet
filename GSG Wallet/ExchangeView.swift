@@ -66,7 +66,7 @@ struct ExchangeView: View {
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
-                        .padding()
+                        .padding(.vertical) // 只應用垂直的 padding
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
                         .onChange(of: payCurrency) { newCurrency in
@@ -102,7 +102,7 @@ struct ExchangeView: View {
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
-                        .padding()
+                        .padding(.vertical) // 只應用垂直的 padding
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
                     }

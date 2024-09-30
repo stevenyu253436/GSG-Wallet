@@ -14,9 +14,12 @@ struct AssetDetailView: View {
     var equivalentBalance: Double
     var availableBalance: Double = 0.0
     var unavailableBalance: Double = 0.0
-    
+    var erc20Balance: Double
+    var trc20Balance: Double
+
     // State variable to control visibility of asset balance
     @State private var isBalanceHidden = false
+    @State private var showWithdrawView = false // State variable to control showing WithdrawView
 
     var body: some View {
         VStack(spacing: 20) {
@@ -101,8 +104,9 @@ struct AssetDetailView: View {
                     }
                 }
                 
+                // Open WithdrawView using fullScreenCover
                 Button(action: {
-                    // Handle withdraw action here
+                    showWithdrawView = true
                 }) {
                     VStack {
                         Image(systemName: "arrow.up.circle")
@@ -129,8 +133,10 @@ struct AssetDetailView: View {
             
             Spacer()
         }
-        .navigationBarTitle(Text(assetName), displayMode: .inline)
         .padding()
+        .fullScreenCover(isPresented: $showWithdrawView) {
+            WithdrawView(erc20Balance: erc20Balance, trc20Balance: trc20Balance)
+        }
     }
 }
 
@@ -141,7 +147,9 @@ struct AssetDetailView_Previews: PreviewProvider {
             assetBalance: 13.800000,
             equivalentBalance: 13.80,
             availableBalance: 13.800000,
-            unavailableBalance: 0.0
+            unavailableBalance: 0.0,
+            erc20Balance: 13.800000,
+            trc20Balance: 0
         )
     }
 }

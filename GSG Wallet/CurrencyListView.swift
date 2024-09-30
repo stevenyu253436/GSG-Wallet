@@ -57,26 +57,6 @@ struct CurrencyListView: View {
                             .foregroundColor(.gray)
                     }
                 }
-//                HStack {
-//                    CurrencyRow(currencyName: "BTC", currencyDescription: "Bitcoin", iconName: "bitcoin-btc-logo")
-//                    Spacer()
-//                    Button(action: {
-//                        showWithdrawView = true
-//                    }) {
-//                        Image(systemName: "chevron.right")
-//                            .foregroundColor(.gray)
-//                    }
-//                }
-//                HStack {
-//                    CurrencyRow(currencyName: "ETH", currencyDescription: "Ethereum", iconName: "ethereum-eth-logo")
-//                    Spacer()
-//                    Button(action: {
-//                        showWithdrawView = true
-//                    }) {
-//                        Image(systemName: "chevron.right")
-//                            .foregroundColor(.gray)
-//                    }
-//                }
             }
         }
         .navigationTitle("幣種清單")

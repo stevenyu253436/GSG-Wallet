@@ -112,33 +112,27 @@ struct HomeView: View {
 
                 // 資產列表
                 List {
-                    AssetRow(
-                        assetName: "USD",
-                        assetDescription: "US Dollars",
-                        balance: String(format: "%.2f", usdAmount), // 顯示到小數點後兩位
-                        equivalent: String(format: "≈$%.2f", usdAmount), // 顯示到小數點後兩位
-                        iconName: "dollarsign" // 使用合適的圖標名稱
-                    )
-
-                    // USDT-ERC20 Row with NavigationLink
-                    NavigationLink(destination: AssetDetailView(assetName: "USDT-ERC20", assetBalance: usdtERC20Amount, equivalentBalance: usdtERC20Amount * 1.05, availableBalance: usdtERC20Amount, unavailableBalance: 0.0)) {
+                    // USD Row with NavigationLink
+                    NavigationLink(destination: AssetDetailView(assetName: "USD", assetBalance: usdAmount, equivalentBalance: usdAmount, availableBalance: usdAmount, unavailableBalance: 0.0, erc20Balance: 0.0, trc20Balance: 0.0)) {
                         AssetRow(
-                            assetName: "USDT-ERC20",
-                            assetDescription: "Tether (ERC20)",
-                            balance: String(format: "%.6f", usdtERC20Amount),
-                            equivalent: String(format: "≈$%.2f", usdtERC20Amount),
-                            iconName: "tether-usdt-logo"
+                            assetName: "USD",
+                            assetDescription: "US Dollars",
+                            balance: String(format: "%.2f", usdAmount), // 顯示到小數點後兩位
+                            equivalent: String(format: "≈$%.2f", usdAmount), // 顯示到小數點後兩位
+                            iconName: "dollarsign" // 使用合適的圖標名稱
                         )
                     }
                     
-                    // USDT-TRC20 Row
-                    AssetRow(
-                        assetName: "USDT-TRC20",
-                        assetDescription: "Tether (TRC20)",
-                        balance: String(format: "%.6f", usdtTRC20Amount), // 顯示到小數點後六位
-                        equivalent: String(format: "≈$%.2f", usdtTRC20Amount), // 顯示到小數點後兩位
-                        iconName: "tether-usdt-logo"
-                    )
+                    // USDT Row with NavigationLink
+                    NavigationLink(destination: AssetDetailView(assetName: "USDT", assetBalance: usdtERC20Amount + usdtTRC20Amount, equivalentBalance: usdtERC20Amount + usdtTRC20Amount, availableBalance: usdtERC20Amount + usdtTRC20Amount, unavailableBalance: 0.0, erc20Balance: usdtERC20Amount, trc20Balance: usdtTRC20Amount)) {
+                        AssetRow(
+                            assetName: "USDT",
+                            assetDescription: "Tether",
+                            balance: String(format: "%.6f", usdtERC20Amount + usdtTRC20Amount),
+                            equivalent: String(format: "≈$%.2f", usdtERC20Amount + usdtTRC20Amount),
+                            iconName: "tether-usdt-logo"
+                        )
+                    }
                 }
                 .listStyle(InsetGroupedListStyle())
                 .onAppear {
