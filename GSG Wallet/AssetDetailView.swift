@@ -22,7 +22,8 @@ struct AssetDetailView: View {
     @State private var showWithdrawView = false // For fullScreenCover
     @State private var showRechargeView = false // New state variable for RechargeView
     @State private var showExchangeView = false
-    
+    @State private var hasHistory = false // New variable to control history display
+
     var body: some View {
         VStack(spacing: 20) {
             Text(assetName)
@@ -140,6 +141,39 @@ struct AssetDetailView: View {
             .padding()
             
             Spacer()
+            
+            // Bottom section for history and more
+            VStack {
+                HStack {
+                    // History text
+                    Text("歷史")
+                        .font(.headline)
+                        .padding(.leading, 16)
+                    Spacer()
+                    // More with chevron
+                    HStack {
+                        Text("更多")
+                            .font(.headline)
+                        Image(systemName: "chevron.right")
+                            .font(.headline)
+                    }
+                    .padding(.trailing, 16)
+                }
+                
+                if !hasHistory {
+                    Spacer()
+                    
+                    // Center icon
+                    Image(systemName: "doc.text.magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.purple)
+                    
+                    Spacer()
+                }
+            }
+            .padding(.bottom, 40) // Adjust padding as needed
         }
         .padding()
         .fullScreenCover(isPresented: $showWithdrawView) {
