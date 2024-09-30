@@ -19,8 +19,10 @@ struct AssetDetailView: View {
 
     // State variable to control visibility of asset balance
     @State private var isBalanceHidden = false
-    @State private var showWithdrawView = false // State variable to control showing WithdrawView
-
+    @State private var showWithdrawView = false // For fullScreenCover
+    @State private var showRechargeView = false // New state variable for RechargeView
+    @State private var showExchangeView = false
+    
     var body: some View {
         VStack(spacing: 20) {
             Text(assetName)
@@ -92,15 +94,18 @@ struct AssetDetailView: View {
             .padding(.horizontal, 40)
             
             HStack(spacing: 80) {
-                Button(action: {
-                    // Handle recharge action here
-                }) {
-                    VStack {
-                        Image(systemName: "arrow.down.circle")
-                            .font(.largeTitle)
-                            .foregroundColor(.black)
-                        Text("充值")
-                            .foregroundColor(.black)
+                // Navigate to RechargeView using NavigationLink
+                NavigationLink(destination: RechargeView(), isActive: $showRechargeView) {
+                    Button(action: {
+                        showRechargeView = true
+                    }) {
+                        VStack {
+                            Image(systemName: "arrow.down.circle")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                            Text("充值")
+                                .foregroundColor(.black)
+                        }
                     }
                 }
                 
@@ -117,15 +122,18 @@ struct AssetDetailView: View {
                     }
                 }
                 
-                Button(action: {
-                    // Handle exchange action here
-                }) {
-                    VStack {
-                        Image(systemName: "arrow.left.and.right.circle")
-                            .font(.largeTitle)
-                            .foregroundColor(.black)
-                        Text("兌換")
-                            .foregroundColor(.black)
+                // Navigate to ExchangeView using NavigationLink
+                NavigationLink(destination: ExchangeView(usdtAmount: erc20Balance + trc20Balance), isActive: $showExchangeView) {
+                    Button(action: {
+                        showExchangeView = true
+                    }) {
+                        VStack {
+                            Image(systemName: "arrow.left.and.right.circle")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                            Text("兌換")
+                                .foregroundColor(.black)
+                        }
                     }
                 }
             }

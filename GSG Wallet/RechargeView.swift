@@ -10,7 +10,7 @@ import CoreImage.CIFilterBuiltins
 
 struct RechargeView: View {
     // 使用 @State 来存储当前选择的地址
-    @State private var selectedAddress: String = "0x1E7B10AaF9888a6b1FED08E72859351d465c5932"
+    @State private var selectedAddress: String = globalERC20Address
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     
@@ -38,7 +38,7 @@ struct RechargeView: View {
             HStack {
                 Button(action: {
                     // 切换到 ETH/ERC20 网络
-                    selectedAddress = "0x1E7B10AaF9888a6b1FED08E72859351d465c5932"
+                    selectedAddress = globalERC20Address
                 }) {
                     Text("ETH/ERC20")
                         .padding()
@@ -48,7 +48,7 @@ struct RechargeView: View {
                 
                 Button(action: {
                     // 切换到 Tron/TRC20 网络
-                    selectedAddress = "TAMGw3VQMj9RUDQXAMPYVE7TqrckpqHrrS"
+                    selectedAddress = globalTRC20Address
                 }) {
                     Text("Tron/TRC20")
                         .padding()
