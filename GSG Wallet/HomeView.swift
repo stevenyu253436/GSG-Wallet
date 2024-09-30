@@ -85,7 +85,6 @@ struct HomeView: View {
                         }
                     }
                     
-                    
                     // 使用 NavigationLink 進行導航到兌換頁面
                     NavigationLink(destination: ExchangeView(usdtAmount: usdtERC20Amount + usdtTRC20Amount)) {
                         VStack {
