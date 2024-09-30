@@ -75,10 +75,19 @@ struct WithdrawView: View {
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
                         
-                        Text("USDT")
-                            .padding()
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(10)
+                        // Create a container HStack for the image and text
+                        HStack(spacing: 5) {
+                            Image("tether-usdt-logo") // Replace this with the actual name of your USDT icon image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24) // Adjust the size as needed
+                            
+                            Text("USDT")
+                        }
+                        .padding(.horizontal, 15) // Add some padding inside the HStack for a better appearance
+                        .padding(.vertical) // Optional padding for the top and bottom
+                        .background(Color.gray.opacity(0.1)) // Apply the background to the entire HStack
+                        .cornerRadius(10) // Apply the corner radius to the entire HStack
                     }
                     
                     // 动态显示可用余额
