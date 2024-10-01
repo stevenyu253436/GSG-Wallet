@@ -237,13 +237,37 @@ struct AssetDetailView: View {
                     }
                     .onAppear(perform: fetchERC20History)
                 } else if isTRC20 {
-                    Spacer()
-                    Image(systemName: "doc.text.magnifyingglass")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(.purple)
-                    Spacer()
+                    List(transactions) { transaction in
+                        HStack {
+                            Image(systemName: transaction.value.contains("-") ? "arrow.up.circle" : "arrow.down.circle")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                                .padding(.trailing, 10)
+                            
+                            VStack(alignment: .leading) {
+                                Text(transaction.value.contains("-") ? "提現" : "充值") // Withdrawal or Deposit
+                                    .font(.subheadline)
+                                    .foregroundColor(.black)
+                                Text(transaction.formattedDate)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            
+                            Spacer()
+                            
+                            if let value = Double(transaction.value) {
+                                Text("+\(value / 1_000_000, specifier: "%.6f") \(transaction.tokenSymbol)")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                            } else {
+                                Text("Invalid Value")
+                                    .font(.headline)
+                                    .foregroundColor(.red)
+                            }
+                        }
+                        .padding(.vertical, 5)
+                    }
+                    .onAppear(perform: fetchTRC20History)
                 } else {
                     Spacer()
                     Image(systemName: "doc.text.magnifyingglass")
@@ -292,6 +316,37 @@ struct AssetDetailView: View {
             }
         }.resume()
     }
+    
+    func fetchTRC20History() {
+        let url = "https://api.trongrid.io/v1/accounts/TT8i1yRfNqGL7uudFNgruUFJpqchJjXYZF/transactions/trc20"
+        
+        guard let requestURL = URL(string: url) else { return }
+        
+        URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(TRC20TransactionResponse.self, from: data)
+                    if decodedResponse.success {
+                        DispatchQueue.main.async {
+                            self.transactions = decodedResponse.data.map {
+                                EtherscanTransaction(
+                                    hash: $0.transaction_id,
+                                    timeStamp: "\($0.block_timestamp / 1000)", // Convert to seconds
+                                    from: $0.from,
+                                    to: $0.to,
+                                    value: "\($0.value)",
+                                    tokenSymbol: $0.token_info.symbol
+                                )
+                            }
+                            hasHistory = !self.transactions.isEmpty
+                        }
+                    }
+                } catch {
+                    print("Error decoding TRC20 data: \(error)")
+                }
+            }
+        }.resume()
+    }
 }
 
 struct EtherscanTransactionResponse: Codable {
@@ -307,6 +362,27 @@ struct EtherscanTransactionData: Codable {
     let to: String
     let value: String
     let tokenSymbol: String
+}
+
+struct TRC20TransactionResponse: Codable {
+    let data: [TRC20TransactionData]
+    let success: Bool
+}
+
+struct TRC20TransactionData: Codable {
+    let transaction_id: String
+    let block_timestamp: Int
+    let from: String
+    let to: String
+    let value: String
+    let token_info: TRC20TokenInfo
+}
+
+struct TRC20TokenInfo: Codable {
+    let symbol: String
+    let address: String
+    let decimals: Int
+    let name: String
 }
 
 struct AssetDetailView_Previews: PreviewProvider {

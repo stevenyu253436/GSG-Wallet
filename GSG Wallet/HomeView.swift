@@ -123,7 +123,7 @@ struct HomeView: View {
                     }
                     
                     // USDT-ERC20 Row with NavigationLink
-                    NavigationLink(destination: AssetDetailView(assetName: "USDT-ERC20", assetBalance: usdtERC20Amount, equivalentBalance: usdtERC20Amount, availableBalance: usdtERC20Amount, unavailableBalance: 0.0, erc20Balance: usdtERC20Amount, trc20Balance: 0, isERC20: false, isTRC20: true)) {
+                    NavigationLink(destination: AssetDetailView(assetName: "USDT-ERC20", assetBalance: usdtERC20Amount, equivalentBalance: usdtERC20Amount, availableBalance: usdtERC20Amount, unavailableBalance: 0.0, erc20Balance: usdtERC20Amount, trc20Balance: 0, isERC20: true, isTRC20: false)) {
                         AssetRow(
                             assetName: "USDT-ERC20",
                             assetDescription: "Tether (ERC20)",
@@ -134,7 +134,7 @@ struct HomeView: View {
                     }
 
                     // USDT-TRC20 Row with NavigationLink
-                    NavigationLink(destination: AssetDetailView(assetName: "USDT-TRC20", assetBalance: usdtTRC20Amount, equivalentBalance: usdtTRC20Amount, availableBalance: usdtTRC20Amount, unavailableBalance: 0.0, erc20Balance: 0, trc20Balance: usdtTRC20Amount)) {
+                    NavigationLink(destination: AssetDetailView(assetName: "USDT-TRC20", assetBalance: usdtTRC20Amount, equivalentBalance: usdtTRC20Amount, availableBalance: usdtTRC20Amount, unavailableBalance: 0.0, erc20Balance: 0, trc20Balance: usdtTRC20Amount, isERC20: false, isTRC20: true)) {
                         AssetRow(
                             assetName: "USDT-TRC20",
                             assetDescription: "Tether (TRC20)",
