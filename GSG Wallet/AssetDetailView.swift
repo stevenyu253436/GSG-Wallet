@@ -287,8 +287,8 @@ struct AssetDetailView: View {
     }
     
     func fetchERC20History() {
-        let url = "https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0xdAC17F958D2ee523a2206206994597C13D831ec7&address=\(globalERC20Address)&startblock=0&endblock=99999999&sort=asc&apikey=H6WZH2NCZVQCQUNQJIKAH9TRFCINEKHNI5"
-        
+        let url = "https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0xdAC17F958D2ee523a2206206994597C13D831ec7&address=\(globalERC20Address)&startblock=0&endblock=99999999&sort=asc&apikey=\(globalApiKey)"
+
         guard let requestURL = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: requestURL) { data, response, error in
@@ -318,7 +318,7 @@ struct AssetDetailView: View {
     }
     
     func fetchTRC20History() {
-        let url = "https://api.trongrid.io/v1/accounts/TT8i1yRfNqGL7uudFNgruUFJpqchJjXYZF/transactions/trc20"
+        let url = "https://api.trongrid.io/v1/accounts/\(globalTRC20Address)/transactions/trc20"
         
         guard let requestURL = URL(string: url) else { return }
         

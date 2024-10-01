@@ -10,6 +10,8 @@
 		D017F4B32CA9EC8900C71D18 /* AssetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */; };
 		D017F4B52CAA46ED00C71D18 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */; };
 		D017F4BD2CAB6E2100C71D18 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4BC2CAB6E2100C71D18 /* GlobalVariables.swift */; };
+		D017F4BF2CAC81DD00C71D18 /* WithdrawConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4BE2CAC81DD00C71D18 /* WithdrawConfirmationView.swift */; };
+		D017F4C12CAC829500C71D18 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4C02CAC829500C71D18 /* MultilineTextField.swift */; };
 		D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */; };
 		D0445B542C6ED0150059D522 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B532C6ED0150059D522 /* ContentView.swift */; };
 		D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0445B552C6ED0170059D522 /* Assets.xcassets */; };
@@ -76,6 +78,8 @@
 		D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailView.swift; sourceTree = "<group>"; };
 		D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		D017F4BC2CAB6E2100C71D18 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		D017F4BE2CAC81DD00C71D18 /* WithdrawConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmationView.swift; sourceTree = "<group>"; };
+		D017F4C02CAC829500C71D18 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		D0445B4E2C6ED0150059D522 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSG Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletApp.swift; sourceTree = "<group>"; };
 		D0445B532C6ED0150059D522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 				D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */,
 				D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */,
 				D017F4BC2CAB6E2100C71D18 /* GlobalVariables.swift */,
+				D017F4BE2CAC81DD00C71D18 /* WithdrawConfirmationView.swift */,
+				D017F4C02CAC829500C71D18 /* MultilineTextField.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -399,12 +405,14 @@
 				D0445B862C6ED2AF0059D522 /* AccountSecurityView.swift in Sources */,
 				D0445BAD2C6F084E0059D522 /* RegisterView.swift in Sources */,
 				D0445B962C6ED68D0059D522 /* CountrySelectionView.swift in Sources */,
+				D017F4C12CAC829500C71D18 /* MultilineTextField.swift in Sources */,
 				D0DDDB602CA8E0C700A78A87 /* PersonalInformationView.swift in Sources */,
 				D0445C932C7B20700059D522 /* SecurityVerificationView.swift in Sources */,
 				D0445C952C7B27930059D522 /* VerificationView.swift in Sources */,
 				D0445B8C2C6ED3310059D522 /* AddAddressView.swift in Sources */,
 				D0445B942C6ED3FF0059D522 /* GlobalTransferView.swift in Sources */,
 				D0445BA22C6ED7880059D522 /* QRCodeScannerView.swift in Sources */,
+				D017F4BF2CAC81DD00C71D18 /* WithdrawConfirmationView.swift in Sources */,
 				D0445C9B2C7B485A0059D522 /* UserInfoView.swift in Sources */,
 				D0445BAA2C6ED8D10059D522 /* WalletModels.swift in Sources */,
 				D017F4B52CAA46ED00C71D18 /* HistoryDetailView.swift in Sources */,

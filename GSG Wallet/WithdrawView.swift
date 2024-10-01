@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// Extension to hide the keyboard when tapping outside the TextField
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct WithdrawView: View {
     @State private var withdrawalAmount: String = ""
     @State private var selectedChainType: String = "ETH/ERC20"
@@ -15,6 +22,7 @@ struct WithdrawView: View {
     @State private var networkFee: Double = 0.0
     @State private var netAmount: Double = 0.0
     @State private var isShowingScanner = false // 控制 QR 码扫描器的显示
+    @State private var isShowingConfirmationSheet = false // New state for showing the confirmation sheet
 
     var erc20Balance: Double  // ERC20 的可用余额
     var trc20Balance: Double  // TRC20 的可用余额
@@ -133,10 +141,9 @@ struct WithdrawView: View {
                         .font(.headline)
                     
                     HStack {
-                        TextField("請輸入提現地址", text: $withdrawalAddress)
-                            .padding()
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(10)
+                        MultilineTextField(text: $withdrawalAddress, placeholder: "請輸入提現地址") // Add the placeholder text
+                            .frame(height: 80) // Adjust the height to your preference
+                            .padding(.horizontal, 5)
                         
                         Button(action: {
                             isShowingScanner = true
@@ -190,8 +197,12 @@ struct WithdrawView: View {
                 
                 // 提現按鈕
                 Button(action: {
-                    // 提现逻辑
-                    presentationMode.wrappedValue.dismiss()
+                    // Calculate net amount
+                    if let amount = Double(withdrawalAmount) {
+                        netAmount = amount - networkFee
+                    }
+                    // Show confirmation sheet
+                    isShowingConfirmationSheet = true
                 }) {
                     Text("提現")
                         .font(.headline)
@@ -204,6 +215,22 @@ struct WithdrawView: View {
                 .padding(.bottom, 30) // 添加底部填充，确保按钮不会被遮挡
             }
             .padding()
+            .onTapGesture {
+                self.hideKeyboard() // Add this to hide the keyboard when tapping outside
+            }
+            .sheet(isPresented: $isShowingConfirmationSheet) {
+                WithdrawalConfirmationView(
+                    withdrawalAmount: withdrawalAmount,
+                    fee: networkFee,
+                    totalAmount: (Double(withdrawalAmount) ?? 0) + networkFee,
+                    netAmount: netAmount,
+                    recipientName: recipient,
+                    withdrawalAddress: withdrawalAddress,
+                    isPresented: $isShowingConfirmationSheet
+                )
+                .presentationDetents([.medium, .fraction(0.5)]) // Set the detents here
+                .padding(.horizontal, 20) // Add padding to ensure the sheet content is nicely framed
+            }
         }
     }
 }
