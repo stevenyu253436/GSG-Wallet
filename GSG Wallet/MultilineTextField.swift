@@ -7,67 +7,65 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 struct MultilineTextField: UIViewRepresentable {
     @Binding var text: String
     var placeholder: String
-    
-    func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
-        textView.isEditable = true
-        textView.isScrollEnabled = false
-        textView.font = UIFont.systemFont(ofSize: 16)
-        textView.backgroundColor = UIColor(Color.gray.opacity(0.1))
-        textView.layer.cornerRadius = 10
-        textView.textContainerInset = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
-        textView.delegate = context.coordinator
-        
-        // Set placeholder text initially
-        if text.isEmpty {
-            textView.text = placeholder
-            textView.textColor = UIColor.lightGray
-        }
-        
-        return textView
-    }
-    
-    func updateUIView(_ uiView: UITextView, context: Context) {
-        if text.isEmpty {
-            uiView.text = placeholder
-            uiView.textColor = UIColor.lightGray
-        } else {
-            uiView.text = text
-            uiView.textColor = UIColor.label
-        }
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
+
     class Coordinator: NSObject, UITextViewDelegate {
         var parent: MultilineTextField
-        
-        init(_ parent: MultilineTextField) {
+
+        init(parent: MultilineTextField) {
             self.parent = parent
         }
-        
+
+        func textViewDidChange(_ textView: UITextView) {
+            parent.text = textView.text
+        }
+
         func textViewDidBeginEditing(_ textView: UITextView) {
             if textView.text == parent.placeholder {
                 textView.text = ""
-                textView.textColor = UIColor.label
+                textView.textColor = .label // Use the default label color
             }
         }
-        
+
         func textViewDidEndEditing(_ textView: UITextView) {
             if textView.text.isEmpty {
                 textView.text = parent.placeholder
-                textView.textColor = UIColor.lightGray
+                textView.textColor = .placeholderText // Use the default placeholder color
             }
         }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.delegate = context.coordinator
+        textView.isScrollEnabled = true
+        textView.isEditable = true
+        textView.isUserInteractionEnabled = true
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.textColor = .placeholderText
+        textView.backgroundColor = UIColor.systemGray6 // Set the background color
+        textView.layer.cornerRadius = 8 // Set the corner radius
+        textView.text = placeholder // Set the placeholder text
+        return textView
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        if uiView.text != text && text != "" {
+            uiView.text = text
+            uiView.textColor = .label
+        }
         
-        func textViewDidChange(_ textView: UITextView) {
-            parent.text = textView.text
+        if text.isEmpty {
+            uiView.text = placeholder
+            uiView.textColor = .placeholderText
         }
     }
 }

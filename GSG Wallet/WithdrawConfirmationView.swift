@@ -17,6 +17,13 @@ struct WithdrawalConfirmationView: View {
     var withdrawalAddress: String
     @Binding var isPresented: Bool
     
+    @State private var showAlert = false // State variable to control alert visibility
+    
+    var availableBalance: Double { // Assuming you pass the available balance to this view
+        // Here you can pass the actual available balance value when creating this view
+        return 20.0 // Replace this with the actual balance value from your data
+    }
+    
     var body: some View {
         VStack(spacing: 15) {
             Text("提現 USDT")
@@ -86,8 +93,12 @@ struct WithdrawalConfirmationView: View {
                 }
                 
                 Button(action: {
-                    // Confirm withdrawal logic here
-                    isPresented = false
+                    if let amount = Double(withdrawalAmount), amount > availableBalance {
+                        showAlert = true // Show alert if withdrawal amount exceeds available balance
+                    } else {
+                        // Confirm withdrawal logic here
+                        isPresented = false
+                    }
                 }) {
                     Text("確認")
                         .foregroundColor(.white)
@@ -105,5 +116,12 @@ struct WithdrawalConfirmationView: View {
         .cornerRadius(15)
         .shadow(radius: 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("可用餘額不足！"),
+                message: Text("您的可用餘額不足以完成此次提現操作。"),
+                dismissButton: .default(Text("確認"))
+            )
+        }
     }
 }
