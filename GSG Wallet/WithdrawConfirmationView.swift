@@ -119,7 +119,6 @@ struct WithdrawalConfirmationView: View {
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("可用餘額不足！"),
-                message: Text("您的可用餘額不足以完成此次提現操作。"),
                 dismissButton: .default(Text("確認"))
             )
         }
