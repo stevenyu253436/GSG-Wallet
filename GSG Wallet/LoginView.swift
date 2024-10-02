@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        self.windows
+            .filter {$0.isKeyWindow}
+            .first?
+            .endEditing(force)
+    }
+}
+
 struct LoginView: View {
     @Binding var isLoggedIn: Bool  // 绑定登录状态
     
@@ -155,6 +164,9 @@ struct LoginView: View {
                     EmptyView()
                 }
             )
+            .onTapGesture {
+                UIApplication.shared.endEditing(true)  // Dismiss the keyboard when tapping outside
+            }
         }
     }
     

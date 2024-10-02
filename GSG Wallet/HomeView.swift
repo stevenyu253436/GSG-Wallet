@@ -202,6 +202,14 @@ struct HomeView: View {
                 return
             }
             
+            // Print the raw response for debugging
+            if let httpResponse = response as? HTTPURLResponse {
+                print("HTTP Response: \(httpResponse.statusCode)")
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("Response Data: \(dataString)")
+                }
+            }
+            
             do {
                 let walletResponse = try JSONDecoder().decode(WalletResponse.self, from: data)
                 if let usdtWallet = walletResponse.data.responseWallets.first(where: { $0.coinType == "USDT" }) {
