@@ -14,6 +14,8 @@
 		D017F4C12CAC829500C71D18 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4C02CAC829500C71D18 /* MultilineTextField.swift */; };
 		D017F4C52CACD07800C71D18 /* TRC20TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4C42CACD07800C71D18 /* TRC20TransactionManager.swift */; };
 		D017F4C72CACD27F00C71D18 /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4C62CACD27F00C71D18 /* Base58.swift */; };
+		D017F4C92CAD08DF00C71D18 /* ERC20TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017F4C82CAD08DF00C71D18 /* ERC20TransactionManager.swift */; };
+		D017F4D72CAD413200C71D18 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D017F4D62CAD413200C71D18 /* CryptoSwift */; };
 		D0445B522C6ED0150059D522 /* GSG_WalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */; };
 		D0445B542C6ED0150059D522 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445B532C6ED0150059D522 /* ContentView.swift */; };
 		D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0445B552C6ED0170059D522 /* Assets.xcassets */; };
@@ -54,7 +56,7 @@
 		D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0445CB72C7B5BD40059D522 /* Localizable.strings */; };
 		D055E9942C91362400A97DD1 /* EtherscanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055E9932C91362400A97DD1 /* EtherscanResponse.swift */; };
 		D055E9972C914A1700A97DD1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9962C914A1700A97DD1 /* Web3 */; };
-		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; };
+		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; settings = {ATTRIBUTES = (Required, ); }; };
 		D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D055E99A2C914A1700A97DD1 /* Web3PromiseKit */; };
 		D0DDDB602CA8E0C700A78A87 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +78,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D017F4CC2CAD2BB100C71D18 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D017F4B22CA9EC8900C71D18 /* AssetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailView.swift; sourceTree = "<group>"; };
 		D017F4B42CAA46ED00C71D18 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
@@ -84,14 +99,15 @@
 		D017F4C02CAC829500C71D18 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		D017F4C42CACD07800C71D18 /* TRC20TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRC20TransactionManager.swift; sourceTree = "<group>"; };
 		D017F4C62CACD27F00C71D18 /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
-		D0445B4E2C6ED0150059D522 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSG Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D017F4C82CAD08DF00C71D18 /* ERC20TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TransactionManager.swift; sourceTree = "<group>"; };
+		D017F4D82CAD417300C71D18 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "GSG Wallet.app"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG Wallet.app"; sourceTree = "<absolute>"; };
+		D017F4D92CAD417300C71D18 /* GSG WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "GSG WalletTests.xctest"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG Wallet.app/PlugIns/GSG WalletTests.xctest"; sourceTree = "<absolute>"; };
+		D017F4DA2CAD417300C71D18 /* GSG WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "GSG WalletUITests.xctest"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG WalletUITests-Runner.app/PlugIns/GSG WalletUITests.xctest"; sourceTree = "<absolute>"; };
 		D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletApp.swift; sourceTree = "<group>"; };
 		D0445B532C6ED0150059D522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D0445B552C6ED0170059D522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0445B582C6ED0170059D522 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D0445B5E2C6ED0170059D522 /* GSG WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSG WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B622C6ED0170059D522 /* GSG_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletTests.swift; sourceTree = "<group>"; };
-		D0445B682C6ED0170059D522 /* GSG WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSG WalletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B6C2C6ED0170059D522 /* GSG_WalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletUITests.swift; sourceTree = "<group>"; };
 		D0445B6E2C6ED0170059D522 /* GSG_WalletUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D0445B7B2C6ED1190059D522 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -137,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */,
+				D017F4D72CAD413200C71D18 /* CryptoSwift in Frameworks */,
 				D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */,
 				D055E9972C914A1700A97DD1 /* Web3 in Frameworks */,
 			);
@@ -166,18 +183,7 @@
 				D0445B502C6ED0150059D522 /* GSG Wallet */,
 				D0445B612C6ED0170059D522 /* GSG WalletTests */,
 				D0445B6B2C6ED0170059D522 /* GSG WalletUITests */,
-				D0445B4F2C6ED0150059D522 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		D0445B4F2C6ED0150059D522 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0445B4E2C6ED0150059D522 /* GSG Wallet.app */,
-				D0445B5E2C6ED0170059D522 /* GSG WalletTests.xctest */,
-				D0445B682C6ED0170059D522 /* GSG WalletUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D0445B502C6ED0150059D522 /* GSG Wallet */ = {
@@ -227,6 +233,7 @@
 				D017F4C02CAC829500C71D18 /* MultilineTextField.swift */,
 				D017F4C42CACD07800C71D18 /* TRC20TransactionManager.swift */,
 				D017F4C62CACD27F00C71D18 /* Base58.swift */,
+				D017F4C82CAD08DF00C71D18 /* ERC20TransactionManager.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 				D0445B4A2C6ED0150059D522 /* Sources */,
 				D0445B4B2C6ED0150059D522 /* Frameworks */,
 				D0445B4C2C6ED0150059D522 /* Resources */,
+				D017F4CC2CAD2BB100C71D18 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -276,15 +284,17 @@
 				D055E9962C914A1700A97DD1 /* Web3 */,
 				D055E9982C914A1700A97DD1 /* Web3ContractABI */,
 				D055E99A2C914A1700A97DD1 /* Web3PromiseKit */,
+				D017F4D62CAD413200C71D18 /* CryptoSwift */,
 			);
 			productName = "GSG Wallet";
-			productReference = D0445B4E2C6ED0150059D522 /* GSG Wallet.app */;
+			productReference = D017F4D82CAD417300C71D18 /* GSG Wallet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0445B5D2C6ED0170059D522 /* GSG WalletTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0445B752C6ED0170059D522 /* Build configuration list for PBXNativeTarget "GSG WalletTests" */;
 			buildPhases = (
+				1B8A9B3320306DC4C9C76C03 /* [CP] Check Pods Manifest.lock */,
 				D0445B5A2C6ED0170059D522 /* Sources */,
 				D0445B5B2C6ED0170059D522 /* Frameworks */,
 				D0445B5C2C6ED0170059D522 /* Resources */,
@@ -296,16 +306,18 @@
 			);
 			name = "GSG WalletTests";
 			productName = "GSG WalletTests";
-			productReference = D0445B5E2C6ED0170059D522 /* GSG WalletTests.xctest */;
+			productReference = D017F4D92CAD417300C71D18 /* GSG WalletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D0445B672C6ED0170059D522 /* GSG WalletUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0445B782C6ED0170059D522 /* Build configuration list for PBXNativeTarget "GSG WalletUITests" */;
 			buildPhases = (
+				494B21D7403E1731C2993F13 /* [CP] Check Pods Manifest.lock */,
 				D0445B642C6ED0170059D522 /* Sources */,
 				D0445B652C6ED0170059D522 /* Frameworks */,
 				D0445B662C6ED0170059D522 /* Resources */,
+				43E70CC4EF67C847BF017230 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -314,7 +326,7 @@
 			);
 			name = "GSG WalletUITests";
 			productName = "GSG WalletUITests";
-			productReference = D0445B682C6ED0170059D522 /* GSG WalletUITests.xctest */;
+			productReference = D017F4DA2CAD417300C71D18 /* GSG WalletUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -352,8 +364,9 @@
 			mainGroup = D0445B452C6ED0150059D522;
 			packageReferences = (
 				D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */,
+				D017F4D52CAD413200C71D18 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
-			productRefGroup = D0445B4F2C6ED0150059D522 /* Products */;
+			productRefGroup = D0445B452C6ED0150059D522;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -390,6 +403,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B8A9B3320306DC4C9C76C03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GSG WalletTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		43E70CC4EF67C847BF017230 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		494B21D7403E1731C2993F13 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GSG Wallet-GSG WalletUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D0445B4A2C6ED0150059D522 /* Sources */ = {
@@ -437,6 +514,7 @@
 				D0445BA02C6ED7630059D522 /* LoginView.swift in Sources */,
 				D0445BA62C6ED8300059D522 /* CardBindingView.swift in Sources */,
 				D0445B802C6ED1920059D522 /* CardView.swift in Sources */,
+				D017F4C92CAD08DF00C71D18 /* ERC20TransactionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +704,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "stevenstudio.GSG-Wallet";
@@ -658,6 +737,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "stevenstudio.GSG-Wallet";
@@ -786,6 +866,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D017F4D52CAD413200C71D18 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.3;
+			};
+		};
 		D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift";
@@ -797,6 +885,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D017F4D62CAD413200C71D18 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D017F4D52CAD413200C71D18 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
 		D055E9962C914A1700A97DD1 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */;

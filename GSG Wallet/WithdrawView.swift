@@ -226,6 +226,7 @@ struct WithdrawView: View {
                     netAmount: netAmount,
                     recipientName: recipient,
                     withdrawalAddress: withdrawalAddress,
+                    selectedChainType: selectedChainType,
                     isPresented: $isShowingConfirmationSheet
                 )
                 .presentationDetents([.medium, .fraction(0.5)]) // Set the detents here

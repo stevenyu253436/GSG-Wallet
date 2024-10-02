@@ -15,13 +15,15 @@ struct WithdrawalConfirmationView: View {
     var netAmount: Double
     var recipientName: String
     var withdrawalAddress: String
+    var selectedChainType: String // Add this line
     @Binding var isPresented: Bool
     
     @State private var showAlert = false // State variable to control alert visibility
     @State private var alertMessage = "" // State variable for dynamic alert message
     
-    // Assuming you have the private key stored or passed as a parameter
-    let privateKey = "your-private-key" // Replace with your actual private key
+    // Define your ERC20 and TRC20 private keys
+    let erc20PrivateKey = "0xcd9854abe7fd77a288e0d18c75aa1d85672b8179032915239583c8eb80966445" // Replace with your actual ERC20 private key
+    let trc20PrivateKey = "d2807b6b6095d336e500e58a2bb28ee375f7e688d778ec186c3f0338cd398294" // Replace with your actual TRC20 private key
 
     var availableBalance: Double { // Assuming you pass the available balance to this view
         // Here you can pass the actual available balance value when creating this view
@@ -137,16 +139,32 @@ struct WithdrawalConfirmationView: View {
     
     // Function to create a raw transfer
     func createRawTransfer(amount: Double, toAddress: String, completion: @escaping (Bool) -> Void) {
-        let fromAddress = globalTRC20Address // Replace with your actual TRC20 USDT wallet address
-        
-        withdrawTRC20USDT(fromAddress: fromAddress, toAddress: toAddress, amount: amount, privateKey: privateKey) { success, transactionHash in
-            if success {
-                print("Withdrawal successful! Transaction Hash: \(transactionHash ?? "N/A")")
-                completion(true)
-            } else {
-                print("Withdrawal failed.")
-                completion(false)
+
+        // Check the selected chain type
+        if selectedChainType == "Tron/TRC20" {
+            let fromAddress = globalTRC20Address // Replace with your actual TRC20 USDT wallet address
+            
+            withdrawTRC20USDT(fromAddress: fromAddress, toAddress: toAddress, amount: amount, privateKey: trc20PrivateKey) { success, transactionHash in
+                if success {
+                    print("Withdrawal successful! Transaction Hash: \(transactionHash ?? "N/A")")
+                    completion(true)
+                } else {
+                    print("Withdrawal failed.")
+                    completion(false)
+                }
             }
+        } else {
+//            let fromAddress = globalERC20Address // Replace with your actual TRC20 USDT wallet address
+//            
+//            withdrawERC20USDT(fromAddress: globalERC20Address, toAddress: toAddress, amount: amount, privateKey: erc20PrivateKey) { success, transactionHash in
+//                if success {
+//                    print("ERC20 Withdrawal successful! Transaction Hash: \(transactionHash ?? "N/A")")
+//                    completion(true)
+//                } else {
+//                    print("ERC20 Withdrawal failed.")
+//                    completion(false)
+//                }
+//            }
         }
     }
 }
