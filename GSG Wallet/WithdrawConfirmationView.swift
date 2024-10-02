@@ -18,7 +18,11 @@ struct WithdrawalConfirmationView: View {
     @Binding var isPresented: Bool
     
     @State private var showAlert = false // State variable to control alert visibility
+    @State private var alertMessage = "" // State variable for dynamic alert message
     
+    // Assuming you have the private key stored or passed as a parameter
+    let privateKey = "your-private-key" // Replace with your actual private key
+
     var availableBalance: Double { // Assuming you pass the available balance to this view
         // Here you can pass the actual available balance value when creating this view
         return 20.0 // Replace this with the actual balance value from your data
@@ -94,10 +98,17 @@ struct WithdrawalConfirmationView: View {
                 
                 Button(action: {
                     if let amount = Double(withdrawalAmount), amount > availableBalance {
+                        alertMessage = "可用餘額不足！"
                         showAlert = true // Show alert if withdrawal amount exceeds available balance
                     } else {
-                        // Confirm withdrawal logic here
-                        isPresented = false
+                        createRawTransfer(amount: Double(withdrawalAmount) ?? 0, toAddress: withdrawalAddress) { success in
+                            if success {
+                                alertMessage = "提現成功！"
+                            } else {
+                                alertMessage = "提現失敗，請稍後再試。"
+                            }
+                            showAlert = true
+                        }
                     }
                 }) {
                     Text("確認")
@@ -118,9 +129,24 @@ struct WithdrawalConfirmationView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .alert(isPresented: $showAlert) {
             Alert(
-                title: Text("可用餘額不足！"),
+                title: Text(alertMessage),
                 dismissButton: .default(Text("確認"))
             )
+        }
+    }
+    
+    // Function to create a raw transfer
+    func createRawTransfer(amount: Double, toAddress: String, completion: @escaping (Bool) -> Void) {
+        let fromAddress = globalTRC20Address // Replace with your actual TRC20 USDT wallet address
+        
+        withdrawTRC20USDT(fromAddress: fromAddress, toAddress: toAddress, amount: amount, privateKey: privateKey) { success, transactionHash in
+            if success {
+                print("Withdrawal successful! Transaction Hash: \(transactionHash ?? "N/A")")
+                completion(true)
+            } else {
+                print("Withdrawal failed.")
+                completion(false)
+            }
         }
     }
 }
