@@ -100,9 +100,9 @@
 		D017F4C42CACD07800C71D18 /* TRC20TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRC20TransactionManager.swift; sourceTree = "<group>"; };
 		D017F4C62CACD27F00C71D18 /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		D017F4C82CAD08DF00C71D18 /* ERC20TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TransactionManager.swift; sourceTree = "<group>"; };
-		D017F4D82CAD417300C71D18 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "GSG Wallet.app"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG Wallet.app"; sourceTree = "<absolute>"; };
-		D017F4D92CAD417300C71D18 /* GSG WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "GSG WalletTests.xctest"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG Wallet.app/PlugIns/GSG WalletTests.xctest"; sourceTree = "<absolute>"; };
-		D017F4DA2CAD417300C71D18 /* GSG WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "GSG WalletUITests.xctest"; path = "/Users/youzhewei/Desktop/GSG-Wallet/build/Debug-iphoneos/GSG WalletUITests-Runner.app/PlugIns/GSG WalletUITests.xctest"; sourceTree = "<absolute>"; };
+		D017F4DC2CAD5E2700C71D18 /* GSG Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSG Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D017F4DD2CAD5E2700C71D18 /* GSG WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSG WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D017F4DE2CAD5E2700C71D18 /* GSG WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSG WalletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSG_WalletApp.swift; sourceTree = "<group>"; };
 		D0445B532C6ED0150059D522 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D0445B552C6ED0170059D522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,6 +183,9 @@
 				D0445B502C6ED0150059D522 /* GSG Wallet */,
 				D0445B612C6ED0170059D522 /* GSG WalletTests */,
 				D0445B6B2C6ED0170059D522 /* GSG WalletUITests */,
+				D017F4DC2CAD5E2700C71D18 /* GSG Wallet.app */,
+				D017F4DD2CAD5E2700C71D18 /* GSG WalletTests.xctest */,
+				D017F4DE2CAD5E2700C71D18 /* GSG WalletUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -287,14 +290,13 @@
 				D017F4D62CAD413200C71D18 /* CryptoSwift */,
 			);
 			productName = "GSG Wallet";
-			productReference = D017F4D82CAD417300C71D18 /* GSG Wallet.app */;
+			productReference = D017F4DC2CAD5E2700C71D18 /* GSG Wallet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0445B5D2C6ED0170059D522 /* GSG WalletTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0445B752C6ED0170059D522 /* Build configuration list for PBXNativeTarget "GSG WalletTests" */;
 			buildPhases = (
-				1B8A9B3320306DC4C9C76C03 /* [CP] Check Pods Manifest.lock */,
 				D0445B5A2C6ED0170059D522 /* Sources */,
 				D0445B5B2C6ED0170059D522 /* Frameworks */,
 				D0445B5C2C6ED0170059D522 /* Resources */,
@@ -306,18 +308,16 @@
 			);
 			name = "GSG WalletTests";
 			productName = "GSG WalletTests";
-			productReference = D017F4D92CAD417300C71D18 /* GSG WalletTests.xctest */;
+			productReference = D017F4DD2CAD5E2700C71D18 /* GSG WalletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D0445B672C6ED0170059D522 /* GSG WalletUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0445B782C6ED0170059D522 /* Build configuration list for PBXNativeTarget "GSG WalletUITests" */;
 			buildPhases = (
-				494B21D7403E1731C2993F13 /* [CP] Check Pods Manifest.lock */,
 				D0445B642C6ED0170059D522 /* Sources */,
 				D0445B652C6ED0170059D522 /* Frameworks */,
 				D0445B662C6ED0170059D522 /* Resources */,
-				43E70CC4EF67C847BF017230 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -326,7 +326,7 @@
 			);
 			name = "GSG WalletUITests";
 			productName = "GSG WalletUITests";
-			productReference = D017F4DA2CAD417300C71D18 /* GSG WalletUITests.xctest */;
+			productReference = D017F4DE2CAD5E2700C71D18 /* GSG WalletUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -403,70 +403,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1B8A9B3320306DC4C9C76C03 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GSG WalletTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		43E70CC4EF67C847BF017230 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GSG Wallet-GSG WalletUITests/Pods-GSG Wallet-GSG WalletUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		494B21D7403E1731C2993F13 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GSG Wallet-GSG WalletUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D0445B4A2C6ED0150059D522 /* Sources */ = {

@@ -15,6 +15,7 @@ extension View {
 }
 
 struct WithdrawView: View {
+    @AppStorage(selectedLanguageKey) var selectedLanguage: String = "zh-Hant" // 使用 AppStorage 获取当前选择的语言
     @State private var withdrawalAmount: String = ""
     @State private var selectedChainType: String = "ETH/ERC20"
     @State private var withdrawalAddress: String = ""
@@ -63,21 +64,21 @@ struct WithdrawView: View {
                     
                     Spacer()
                     
-                    Text("提現")
+                    Text(selectedLanguage == "zh-Hant" ? "提現" : "Withdraw")
                         .font(.title)
-                        .padding(.trailing, 40) // 添加适当的右边距来平衡
-                    
+                        .padding(.trailing, 40)
+
                     Spacer() // 在标题的右侧添加一个 Spacer，使标题居中
                 }
                 .padding(.top, 20)
                 
                 // 提現金額輸入框
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("提現金額")
+                    Text(selectedLanguage == "zh-Hant" ? "提現金額" : "Withdrawal amount")
                         .font(.headline)
-                    
+
                     HStack {
-                        TextField("輸入金額", text: $withdrawalAmount)
+                        TextField(selectedLanguage == "zh-Hant" ? "輸入金額" : "Enter amount", text: $withdrawalAmount)
                             .keyboardType(.decimalPad)
                             .padding()
                             .background(Color.gray.opacity(0.1))
@@ -99,18 +100,18 @@ struct WithdrawView: View {
                     }
                     
                     // 动态显示可用余额
-                    Text("可用餘額: \(String(format: "%.6f", displayedBalance)) USDT")
+                    Text("\(selectedLanguage == "zh-Hant" ? "可用餘額" : "Available balance"): \(String(format: "%.6f", displayedBalance)) USDT")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
                 
                 // 提現類型選擇
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("提現類型")
+                    Text(selectedLanguage == "zh-Hant" ? "提現類型" : "Withdrawal type")
                         .font(.headline)
                     
-                    Picker("提現類型", selection: $selectedChainType) {
-                        Text("鏈上轉帳").tag("鏈上轉帳")
+                    Picker(selectedLanguage == "zh-Hant" ? "提現類型" : "Withdrawal type", selection: $selectedChainType) {
+                        Text(selectedLanguage == "zh-Hant" ? "鏈上轉帳" : "On-chain").tag("鏈上轉帳")
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding()
@@ -121,10 +122,10 @@ struct WithdrawView: View {
                 
                 // 鏈名稱選擇
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("鏈名稱")
+                    Text(selectedLanguage == "zh-Hant" ? "鏈名稱" : "Chain name")
                         .font(.headline)
                     
-                    Picker("鏈名稱", selection: $selectedChainType) {
+                    Picker(selectedLanguage == "zh-Hant" ? "鏈名稱" : "Chain Name", selection: $selectedChainType) {
                         Text("ETH/ERC20").tag("ETH/ERC20")
                         Text("Tron/TRC20").tag("Tron/TRC20")
                     }
@@ -137,11 +138,11 @@ struct WithdrawView: View {
                 
                 // 提現地址輸入框
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("提現地址")
+                    Text(selectedLanguage == "zh-Hant" ? "提現地址" : "Withdrawal address")
                         .font(.headline)
                     
                     HStack {
-                        MultilineTextField(text: $withdrawalAddress, placeholder: "請輸入提現地址") // Add the placeholder text
+                        MultilineTextField(text: $withdrawalAddress, placeholder: selectedLanguage == "zh-Hant" ? "請輸入提現地址" : "Please fill in Withdrawal address")
                             .frame(height: 80) // Adjust the height to your preference
                             .padding(.horizontal, 5)
                         
@@ -165,10 +166,10 @@ struct WithdrawView: View {
                 
                 // 收款人輸入框
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("收款人")
+                    Text(selectedLanguage == "zh-Hant" ? "收款人" : "Payee")
                         .font(.headline)
                     
-                    TextField("輸入收款人", text: $recipient)
+                    TextField(selectedLanguage == "zh-Hant" ? "輸入收款人" : "Enter payee", text: $recipient)
                         .padding()
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
@@ -177,14 +178,14 @@ struct WithdrawView: View {
                 // 网络费和到账数量
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Text("網絡費")
+                        Text(selectedLanguage == "zh-Hant" ? "網絡費" : "Network fee")
                         Spacer()
                         Text("- \(String(format: "%.6f", networkFee)) USDT")
                             .foregroundColor(.gray)
                     }
                     
                     HStack {
-                        Text("到賬數量")
+                        Text(selectedLanguage == "zh-Hant" ? "到賬數量" : "Amount received")
                         Spacer()
                         Text("\(String(format: "%.6f", netAmount)) USDT")
                     }
@@ -204,7 +205,7 @@ struct WithdrawView: View {
                     // Show confirmation sheet
                     isShowingConfirmationSheet = true
                 }) {
-                    Text("提現")
+                    Text(selectedLanguage == "zh-Hant" ? "提現" : "Withdraw")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
