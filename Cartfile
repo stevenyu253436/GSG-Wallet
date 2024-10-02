@@ -1,0 +1,3 @@
+github "GigaBitcoin/secp256k1.swift" ~> 0.1.0
+github "krzyzanowskim/CryptoSwift" ~> 1.4
+github "Boilertalk/Web3.swift" ~> 0.8.0

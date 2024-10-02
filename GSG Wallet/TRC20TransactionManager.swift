@@ -7,6 +7,7 @@
 
 import Foundation
 import CryptoSwift
+import secp256k1 // Import the secp256k1 library
 
 struct TRC20TransferResponse: Codable {
     let result: Bool
@@ -66,11 +67,14 @@ func withdrawTRC20USDT(fromAddress: String, toAddress: String, amount: Double, p
                 }
                 
                 if let transactionData = try? JSONSerialization.data(withJSONObject: transactionJson) {
-                    let signedTransaction = signTransaction(transactionData: transactionData, privateKey: privateKey)
-                    
-                    // Step 6: Broadcast the signed transaction
-                    broadcastTransaction(signedTransaction) { success, transactionHash in
-                        completion(success, transactionHash)
+                    if let signedTransaction = signTransaction(transactionData: transactionData, privateKey: privateKey) {
+                        // Step 6: Broadcast the signed transaction
+                        broadcastTransaction(signedTransaction) { success, transactionHash in
+                            completion(success, transactionHash)
+                        }
+                    } else {
+                        print("Signing transaction failed")
+                        completion(false, nil)
                     }
                 }
             } else {
@@ -85,11 +89,51 @@ func withdrawTRC20USDT(fromAddress: String, toAddress: String, amount: Double, p
 }
 
 // Helper function to sign the transaction using the private key
-func signTransaction(transactionData: Data, privateKey: String) -> Data {
-    let hash = transactionData.sha256()
+func signTransaction(transactionData: Data, privateKey: String) -> Data? {
     let privateKeyBytes = privateKey.hexToBytes()
-    let signature = try! CryptoSwift.ECC.ECDSA.secp256k1.sign(hash, privateKey: privateKeyBytes)
-    return signature
+    
+    guard privateKeyBytes.count == 32 else {
+        print("Invalid private key")
+        return nil
+    }
+    
+    // Create a secp256k1 context
+    guard let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN)) else {
+        print("Failed to create secp256k1 context")
+        return nil
+    }
+    
+    // Prepare the message hash to be signed
+    let hash = transactionData.sha256()
+    
+    // Convert the hash to an UnsafePointer<UInt8>
+    let hashPointer = hash.withUnsafeBytes { $0.baseAddress!.assumingMemoryBound(to: UInt8.self) }
+    
+    // Convert the private key bytes to an UnsafePointer<UInt8>
+    let privateKeyPointer = privateKeyBytes.withUnsafeBytes { $0.baseAddress!.assumingMemoryBound(to: UInt8.self) }
+
+    // Prepare the signature
+    var signature = secp256k1_ecdsa_signature()
+    
+    // Sign the hash
+    let result = secp256k1_ecdsa_sign(context, &signature, hashPointer, privateKeyPointer, nil, nil)
+    
+    // Check if signing was successful
+    if result != 1 {
+        print("Error signing transaction")
+        return nil
+    }
+    
+    // Convert the signature to a DER-encoded byte array
+    var signatureLength: size_t = 72 // Maximum length of DER-encoded signature
+    var derSignature = [UInt8](repeating: 0, count: 72)
+    
+    secp256k1_ecdsa_signature_serialize_der(context, &derSignature, &signatureLength, &signature)
+    
+    // Clean up context
+    secp256k1_context_destroy(context)
+    
+    return Data(derSignature.prefix(signatureLength))
 }
 
 // Helper function to broadcast the signed transaction
