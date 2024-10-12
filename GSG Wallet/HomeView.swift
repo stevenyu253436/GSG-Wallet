@@ -63,7 +63,7 @@ struct HomeView: View {
                 .padding()
                 
                 // 充值、提現、兌換、全球速匯按鈕
-                HStack(spacing: 30) {
+                HStack(spacing: 60) {
                     // 使用 NavigationLink 進行導航
                     NavigationLink(destination: CurrencyListView(erc20Balance: usdtERC20Amount, trc20Balance: usdtTRC20Amount, actionType: .recharge)) {
                         VStack {
@@ -92,16 +92,6 @@ struct HomeView: View {
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
                             Text(selectedLanguage == "zh-Hant" ? "兌換" : "Exchange")
-                                .foregroundColor(.black)
-                        }
-                    }
-                    
-                    NavigationLink(destination: GlobalTransferView()) {
-                        VStack {
-                            Image(systemName: "globe")
-                                .font(.largeTitle)
-                                .foregroundColor(.black)
-                            Text(selectedLanguage == "zh-Hant" ? "全球速匯" : "Remittance")
                                 .foregroundColor(.black)
                         }
                     }
