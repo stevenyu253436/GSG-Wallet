@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAhPYUWDVtDYfakVPMFaAvPl5sZwJahaV0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>74555665122</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>stevenstudio.GSG-Wallet</string>
+	<key>PROJECT_ID</key>
+	<string>gsg-wallet</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gsg-wallet.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:74555665122:ios:11968f8d4cdff0f4a84cbb</string>
+</dict>
+</plist>

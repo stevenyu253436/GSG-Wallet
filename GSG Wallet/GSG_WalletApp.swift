@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth  // 確保已導入 FirebaseAuth
 
 @main
 struct GSG_WalletApp: App {

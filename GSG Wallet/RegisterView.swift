@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct RegisterView: View {
     @Binding var isRegistered: Bool // 用于绑定注册状态，注册完成后返回登录页面
@@ -199,6 +200,31 @@ struct RegisterView: View {
             }
         }.resume()
     }
+
+//    // 發送驗證碼的函數，使用 Firebase Authentication
+//    private func sendVerificationCode(completion: @escaping (Bool) -> Void) {
+//        // 加入台灣的區號，完整的電話號碼
+//        let completePhoneNumber = "+886" + phoneNumber.dropFirst()
+//        
+//        // 使用 Firebase 發送電話驗證碼
+//        PhoneAuthProvider.provider().verifyPhoneNumber(completePhoneNumber, uiDelegate: nil) { verificationID, error in
+//            if let error = error {
+//                print("Failed to send verification code: \(error.localizedDescription)")
+//                completion(false)
+//                return
+//            }
+//            
+//            // 驗證碼發送成功，儲存 verificationID
+//            if let verificationID = verificationID {
+//                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+//                print("Verification code sent successfully, verificationID: \(verificationID)")
+//                completion(true)
+//            } else {
+//                print("Failed to get verificationID")
+//                completion(false)
+//            }
+//        }
+//    }
 }
 
 struct RegisterView_Previews: PreviewProvider {

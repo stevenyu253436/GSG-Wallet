@@ -55,6 +55,13 @@
 		D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0445CB72C7B5BD40059D522 /* Localizable.strings */; };
 		D0472C742CC884750047FE10 /* TRC20Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0472C732CC884750047FE10 /* TRC20Transaction.swift */; };
 		D0472C762CC886A10047FE10 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0472C752CC886A10047FE10 /* ApiResponse.swift */; };
+		D0472C782CC8D9610047FE10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0472C772CC8D9610047FE10 /* GoogleService-Info.plist */; };
+		D0472C7B2CC8D9DF0047FE10 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C7A2CC8D9DF0047FE10 /* FirebaseAnalytics */; };
+		D0472C7D2CC8D9DF0047FE10 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C7C2CC8D9DF0047FE10 /* FirebaseAnalyticsOnDeviceConversion */; };
+		D0472C7F2CC8D9DF0047FE10 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C7E2CC8D9DF0047FE10 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		D0472C812CC8D9DF0047FE10 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C802CC8D9DF0047FE10 /* FirebaseAppCheck */; };
+		D0472C832CC8D9DF0047FE10 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C822CC8D9DF0047FE10 /* FirebaseAppDistribution-Beta */; };
+		D0472C862CC8DF790047FE10 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0472C852CC8DF790047FE10 /* FirebaseAuth */; };
 		D055E9942C91362400A97DD1 /* EtherscanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055E9932C91362400A97DD1 /* EtherscanResponse.swift */; };
 		D055E9972C914A1700A97DD1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9962C914A1700A97DD1 /* Web3 */; };
 		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -145,6 +152,7 @@
 		D0445CBA2C7B5BE90059D522 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D0472C732CC884750047FE10 /* TRC20Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRC20Transaction.swift; sourceTree = "<group>"; };
 		D0472C752CC886A10047FE10 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		D0472C772CC8D9610047FE10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D055E9932C91362400A97DD1 /* EtherscanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtherscanResponse.swift; sourceTree = "<group>"; };
 		D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,10 +162,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0472C812CC8D9DF0047FE10 /* FirebaseAppCheck in Frameworks */,
+				D0472C862CC8DF790047FE10 /* FirebaseAuth in Frameworks */,
 				D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */,
+				D0472C7D2CC8D9DF0047FE10 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				D017F4D72CAD413200C71D18 /* CryptoSwift in Frameworks */,
 				D055E99B2C914A1700A97DD1 /* Web3PromiseKit in Frameworks */,
+				D0472C7F2CC8D9DF0047FE10 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				D0472C7B2CC8D9DF0047FE10 /* FirebaseAnalytics in Frameworks */,
 				D055E9972C914A1700A97DD1 /* Web3 in Frameworks */,
+				D0472C832CC8D9DF0047FE10 /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,12 +202,14 @@
 				D017F4DC2CAD5E2700C71D18 /* GSG Wallet.app */,
 				D017F4DD2CAD5E2700C71D18 /* GSG WalletTests.xctest */,
 				D017F4DE2CAD5E2700C71D18 /* GSG WalletUITests.xctest */,
+				D0472C842CC8DF790047FE10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		D0445B502C6ED0150059D522 /* GSG Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				D0472C772CC8D9610047FE10 /* GoogleService-Info.plist */,
 				D0445BAB2C6ED9370059D522 /* GSG-Wallet-Info.plist */,
 				D0445B512C6ED0150059D522 /* GSG_WalletApp.swift */,
 				D0445B532C6ED0150059D522 /* ContentView.swift */,
@@ -269,6 +285,13 @@
 			path = "GSG WalletUITests";
 			sourceTree = "<group>";
 		};
+		D0472C842CC8DF790047FE10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,6 +314,12 @@
 				D055E9982C914A1700A97DD1 /* Web3ContractABI */,
 				D055E99A2C914A1700A97DD1 /* Web3PromiseKit */,
 				D017F4D62CAD413200C71D18 /* CryptoSwift */,
+				D0472C7A2CC8D9DF0047FE10 /* FirebaseAnalytics */,
+				D0472C7C2CC8D9DF0047FE10 /* FirebaseAnalyticsOnDeviceConversion */,
+				D0472C7E2CC8D9DF0047FE10 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				D0472C802CC8D9DF0047FE10 /* FirebaseAppCheck */,
+				D0472C822CC8D9DF0047FE10 /* FirebaseAppDistribution-Beta */,
+				D0472C852CC8DF790047FE10 /* FirebaseAuth */,
 			);
 			productName = "GSG Wallet";
 			productReference = D017F4DC2CAD5E2700C71D18 /* GSG Wallet.app */;
@@ -368,6 +397,7 @@
 			packageReferences = (
 				D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */,
 				D017F4D52CAD413200C71D18 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = D0445B452C6ED0150059D522;
 			projectDirPath = "";
@@ -386,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0445B592C6ED0170059D522 /* Preview Assets.xcassets in Resources */,
+				D0472C782CC8D9610047FE10 /* GoogleService-Info.plist in Resources */,
 				D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */,
 				D0445B562C6ED0170059D522 /* Assets.xcassets in Resources */,
 			);
@@ -635,7 +666,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "此應用需要訪問相機以拍攝照片。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "此應用需要訪問相簿以選擇照片。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select an image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -668,7 +699,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSG-Wallet-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "此應用需要訪問相機以拍攝照片。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "此應用需要訪問相簿以選擇照片。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select an image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -814,6 +845,14 @@
 				minimumVersion = 1.8.3;
 			};
 		};
+		D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
 		D055E9952C914A1700A97DD1 /* XCRemoteSwiftPackageReference "Web3" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift";
@@ -829,6 +868,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D017F4D52CAD413200C71D18 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
+		};
+		D0472C7A2CC8D9DF0047FE10 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		D0472C7C2CC8D9DF0047FE10 /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		D0472C7E2CC8D9DF0047FE10 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		D0472C802CC8D9DF0047FE10 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		D0472C822CC8D9DF0047FE10 /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		D0472C852CC8DF790047FE10 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0472C792CC8D9DF0047FE10 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 		D055E9962C914A1700A97DD1 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
