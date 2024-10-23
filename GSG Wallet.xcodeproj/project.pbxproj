@@ -53,6 +53,8 @@
 		D0445C992C7B46460059D522 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C982C7B46460059D522 /* String+Localizable.swift */; };
 		D0445C9B2C7B485A0059D522 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0445C9A2C7B48590059D522 /* UserInfoView.swift */; };
 		D0445CB92C7B5BD40059D522 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0445CB72C7B5BD40059D522 /* Localizable.strings */; };
+		D0472C742CC884750047FE10 /* TRC20Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0472C732CC884750047FE10 /* TRC20Transaction.swift */; };
+		D0472C762CC886A10047FE10 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0472C752CC886A10047FE10 /* ApiResponse.swift */; };
 		D055E9942C91362400A97DD1 /* EtherscanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055E9932C91362400A97DD1 /* EtherscanResponse.swift */; };
 		D055E9972C914A1700A97DD1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9962C914A1700A97DD1 /* Web3 */; };
 		D055E9992C914A1700A97DD1 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = D055E9982C914A1700A97DD1 /* Web3ContractABI */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -141,6 +143,8 @@
 		D0445C9A2C7B48590059D522 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		D0445CB82C7B5BD40059D522 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D0445CBA2C7B5BE90059D522 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D0472C732CC884750047FE10 /* TRC20Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRC20Transaction.swift; sourceTree = "<group>"; };
+		D0472C752CC886A10047FE10 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		D055E9932C91362400A97DD1 /* EtherscanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtherscanResponse.swift; sourceTree = "<group>"; };
 		D0DDDB5F2CA8E0C700A78A87 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +238,8 @@
 				D017F4C42CACD07800C71D18 /* TRC20TransactionManager.swift */,
 				D017F4C62CACD27F00C71D18 /* Base58.swift */,
 				D017F4C82CAD08DF00C71D18 /* ERC20TransactionManager.swift */,
+				D0472C732CC884750047FE10 /* TRC20Transaction.swift */,
+				D0472C752CC886A10047FE10 /* ApiResponse.swift */,
 			);
 			path = "GSG Wallet";
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				D0445B8E2C6ED3650059D522 /* ServiceFeesView.swift in Sources */,
 				D0445B7E2C6ED1640059D522 /* RechargeView.swift in Sources */,
 				D0445B822C6ED24E0059D522 /* WithdrawView.swift in Sources */,
+				D0472C762CC886A10047FE10 /* ApiResponse.swift in Sources */,
 				D0445B922C6ED3C20059D522 /* MessageCenterView.swift in Sources */,
 				D0445B542C6ED0150059D522 /* ContentView.swift in Sources */,
 				D0445BA42C6ED7D40059D522 /* TransferInView.swift in Sources */,
@@ -446,6 +453,7 @@
 				D0445BA02C6ED7630059D522 /* LoginView.swift in Sources */,
 				D0445BA62C6ED8300059D522 /* CardBindingView.swift in Sources */,
 				D0445B802C6ED1920059D522 /* CardView.swift in Sources */,
+				D0472C742CC884750047FE10 /* TRC20Transaction.swift in Sources */,
 				D017F4C92CAD08DF00C71D18 /* ERC20TransactionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

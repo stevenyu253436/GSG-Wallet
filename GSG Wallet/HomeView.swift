@@ -136,7 +136,7 @@ struct HomeView: View {
                 }
                 .listStyle(InsetGroupedListStyle())
                 .onAppear {
-                    fetchUSDTTRC20Amount()
+                    fetchUSDTTransactionsAndCalculateBalance()
                     fetchUSDTERC20Amount()
                 }
             }
@@ -151,69 +151,131 @@ struct HomeView: View {
         }
     }
     
-    func fetchUSDTTRC20Amount() {
-        // Print the authToken for debugging
-        print("AuthToken: \(authToken)")
-        
-        guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/GetWallets") else {
+//    func fetchUSDTTRC20Amount() {
+//        // Print the authToken for debugging
+//        print("AuthToken: \(authToken)")
+//        
+//        guard let url = URL(string: "https://gnugcc.ddns.net/api/BitoProServices/GetWallets") else {
+//            print("Invalid URL")
+//            return
+//        }
+//        
+//        // 準備請求
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue(authToken, forHTTPHeaderField: "AuthToken") // Use the saved authToken here
+//
+//        // 請求的 body
+//        let body: [String: String] = [
+//            "address": globalTRC20Address
+//        ]
+//        
+//        // 將 body 轉換為 JSON 數據
+//        do {
+//            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+//        } catch {
+//            print("Failed to encode JSON for USDT-TRC20: \(error.localizedDescription)")
+//            return
+//        }
+//        
+//        let session = URLSession(configuration: .default, delegate: SSLPinner(), delegateQueue: nil)
+//        
+//        session.dataTask(with: request) { data, response, error in
+//            if let error = error {
+//                print("Failed to fetch data: \(error)")
+//                return
+//            }
+//            
+//            guard let data = data else {
+//                print("No data received")
+//                return
+//            }
+//            
+//            // Print the raw response for debugging
+//            if let httpResponse = response as? HTTPURLResponse {
+//                print("HTTP Response: \(httpResponse.statusCode)")
+//                if let dataString = String(data: data, encoding: .utf8) {
+//                    print("Response Data: \(dataString)")
+//                }
+//            }
+//            
+//            do {
+//                let walletResponse = try JSONDecoder().decode(WalletResponse.self, from: data)
+//                if let usdtWallet = walletResponse.data.responseWallets.first(where: { $0.coinType == "USDT" }) {
+//                    DispatchQueue.main.async {
+//                        self.usdtTRC20Amount = usdtWallet.amount
+//                    }
+//                } else {
+//                    print("USDT not found")
+//                }
+//                
+//            } catch {
+//                print("Failed to decode JSON for USDT-TRC20: \(error.localizedDescription)")
+//            }
+//        }.resume()
+//    }
+    
+    func fetchUSDTTransactionsAndCalculateBalance() {
+        let address = globalTRC20Address
+        let urlString = "https://api.trongrid.io/v1/accounts/\(address)/transactions/trc20"
+
+        guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
-        
-        // 準備請求
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(authToken, forHTTPHeaderField: "AuthToken") // Use the saved authToken here
 
-        // 請求的 body
-        let body: [String: String] = [
-            "address": globalTRC20Address
-        ]
-        
-        // 將 body 轉換為 JSON 數據
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-        } catch {
-            print("Failed to encode JSON for USDT-TRC20: \(error.localizedDescription)")
-            return
-        }
-        
-        let session = URLSession(configuration: .default, delegate: SSLPinner(), delegateQueue: nil)
-        
-        session.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Failed to fetch data: \(error)")
                 return
             }
-            
+
             guard let data = data else {
                 print("No data received")
                 return
             }
-            
-            // Print the raw response for debugging
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Response: \(httpResponse.statusCode)")
-                if let dataString = String(data: data, encoding: .utf8) {
-                    print("Response Data: \(dataString)")
-                }
-            }
-            
+
             do {
-                let walletResponse = try JSONDecoder().decode(WalletResponse.self, from: data)
-                if let usdtWallet = walletResponse.data.responseWallets.first(where: { $0.coinType == "USDT" }) {
-                    DispatchQueue.main.async {
-                        self.usdtTRC20Amount = usdtWallet.amount
-                    }
-                } else {
-                    print("USDT not found")
+                // 解析包含 "data" 欄位的外層字典
+                let apiResponse = try JSONDecoder().decode(ApiResponse.self, from: data)
+                let transactions = apiResponse.data
+
+                // 計算 USDT 餘額
+                let usdtBalance = calculateUSDTBalance(transactions: transactions, address: address)
+
+                DispatchQueue.main.async {
+                    self.usdtTRC20Amount = usdtBalance
+                    print("USDT TRC20 Balance: \(usdtBalance)")
                 }
-                
             } catch {
-                print("Failed to decode JSON for USDT-TRC20: \(error.localizedDescription)")
+                print("Failed to decode JSON: \(error)")
             }
         }.resume()
+    }
+    
+    func calculateUSDTBalance(transactions: [TRC20Transaction], address: String) -> Double {
+        var usdtBalance: Double = 0.0
+        
+        for transaction in transactions {
+            // 過濾出 USDT 的交易
+            if transaction.token_info.symbol == "USDT" && transaction.token_info.address == "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t" {
+                if transaction.type == "Transfer" {
+                    let value = Double(transaction.value) ?? 0.0
+                    let adjustedValue = value / pow(10.0, Double(transaction.token_info.decimals))
+                    
+                    if transaction.to == address {
+                        // 如果是轉入該地址，累加餘額
+                        usdtBalance += adjustedValue
+                    } else if transaction.from == address {
+                        // 如果是轉出該地址，扣除餘額
+                        usdtBalance -= adjustedValue
+                    }
+                }
+            }
+        }
+        
+        return usdtBalance
     }
     
     func fetchUSDTERC20Amount() {
